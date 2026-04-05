@@ -1,9 +1,11 @@
-# FBO Membership Funnel Copy
+# FBO Membership Funnel Copy + TSX Pages
 
-This repository contains conversion-focused copy for a two-page membership funnel:
+This repository now includes conversion-focused copy and Tailwind-styled Next.js pages for a two-page membership funnel:
 
-- `homepage.md` — high-conversion homepage structure with email capture CTAs and tiered membership positioning.
-- `membership-details.md` — membership information page with clearly separated membership tiers and primary email conversion section.
+- `app/page.tsx` — homepage experience with conversion-first hero, problem/shift messaging, tiered membership options, and CTA stack.
+- `app/membership-details/page.tsx` — membership details page with tier breakdown, pricing options, bodywork rule callout, and email capture section.
+- `homepage.md` — source homepage copy.
+- `membership-details.md` — source membership details copy.
 
 ## Funnel Logic
 
