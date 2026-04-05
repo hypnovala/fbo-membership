@@ -1,193 +1,167 @@
 import Link from "next/link";
 
-const curriculumItems = [
-  {
-    title: "Foundations of Nervous System Safety",
-    detail:
-      "Understand core autonomic states and how safety cues support steadiness, agency, and clear decision-making.",
-  },
-  {
-    title: "Body Mapping and Signal Tracking",
-    detail:
-      "Build awareness of tension, breath patterns, and activation signals without judgment or urgency.",
-  },
-  {
-    title: "Breath as a Regulation Tool",
-    detail:
-      "Apply practical breathing protocols for downshifting stress and improving recovery between demanding tasks.",
-  },
-  {
-    title: "Grounding and Orientation Skills",
-    detail:
-      "Use orientation, posture, and sensory anchors to return to present-time awareness during stress spikes.",
-  },
-  {
-    title: "Stress Cycle Completion",
-    detail:
-      "Learn simple movement and pacing strategies that help the body complete stress responses safely.",
-  },
-  {
-    title: "Somatic Boundaries and Capacity",
-    detail:
-      "Identify limits early, communicate boundaries clearly, and expand capacity gradually over time.",
-  },
-  {
-    title: "Co-Regulation and Relational Presence",
-    detail:
-      "Practice communication patterns that support nervous system regulation in personal and professional relationships.",
-  },
-  {
-    title: "Embodiment in Daily Routines",
-    detail:
-      "Integrate short check-ins, transitions, and body-based habits that make regulation sustainable.",
-  },
-  {
-    title: "In-Person Table Session Protocol",
-    detail:
-      "Review structure, consent process, and pacing of Houston-based bodywork sessions booked separately.",
-  },
-  {
-    title: "Session Reflection and Integration",
-    detail:
-      "Turn insights into practical next steps with clear reflection prompts and integration planning.",
-  },
-  {
-    title: "Acute Stress Response Plan",
-    detail:
-      "Create a personalized plan for high-pressure moments using repeatable regulation actions.",
-  },
-  {
-    title: "Long-Term Resilience Framework",
-    detail:
-      "Measure progress across sleep, focus, emotional range, and recovery consistency.",
-  },
-];
+export default function BodyworkLandingPage() {
+  const dropdownItems = [
+    {
+      title: "1. Nervous System Sensation Training",
+      content:
+        "Training your body to feel more awareness and subtle sensation instead of relying on intensity.",
+    },
+    {
+      title: "2. Breathwork for Regulation",
+      content:
+        "Structured breathing techniques to regulate the nervous system and improve body awareness.",
+    },
+    {
+      title: "3. Somatic Awareness & Mapping",
+      content: "Learning how to track tension, stress, and sensation patterns in real time.",
+    },
+    {
+      title: "4. Release of Stored Tension",
+      content: "Guided processes to safely release built-up emotional and physical stress.",
+    },
+    {
+      title: "5. Deconditioning Performance Pressure",
+      content: "Rewiring the need to perform and replacing it with presence and awareness.",
+    },
+    {
+      title: "6. Guided Self-Awareness Practices",
+      content: "Step-by-step coaching to build a deeper relationship with your body.",
+    },
+    {
+      title: "7. The Power of Being Seen",
+      content: "Learning to be present and supported without pressure or judgment.",
+    },
+    {
+      title: "8. Weekly Reset Rituals",
+      content: "Simple structured practices to release stress consistently.",
+    },
+    {
+      title: "9. Personalized Coaching Path",
+      content: "Custom guidance based on your specific stress patterns and goals.",
+    },
+    {
+      title: "10. In-Person Embodiment Coaching",
+      content:
+        "Live, guided sessions focused on posture, breath, and regulation without physical contact.",
+    },
+    {
+      title: "11. Somatic Bodywork Sessions",
+      content: "Hands-on sessions designed to release tension and support full-body relaxation.",
+    },
+    {
+      title: "12. Full-Body Awareness Training",
+      content: "Learning to expand awareness throughout the body for deeper calm and presence.",
+    },
+  ];
 
-const tierComparison = [
-  {
-    level: "Level 1 — Online Foundation",
-    format: "Digital coaching",
-    cadence: "Monthly",
-    support: "Structured practices + one monthly check-in",
-    bestFor: "Building baseline regulation skills",
-  },
-  {
-    level: "Level 2 — Online Intensive",
-    format: "Digital coaching",
-    cadence: "Weekly",
-    support: "Weekly 1:1 support with personalized protocols",
-    bestFor: "Consistent accountability and faster skill integration",
-  },
-  {
-    level: "Level 3 — Hybrid Private",
-    format: "Online + Houston in-person options",
-    cadence: "Weekly + optional in-person add-ons",
-    support: "Comprehensive coaching with optional bodywork sessions",
-    bestFor: "High-touch support and deeper nervous system training",
-  },
-];
+  const tierBreakdown = [
+    {
+      name: "Level 1 — Online Coaching",
+      format: "Virtual",
+      support: "Private guidance for breath, awareness, and regulation",
+    },
+    {
+      name: "Level 2 — In-Person Coaching (No Contact)",
+      format: "Houston, in-person",
+      support: "Live coaching for embodiment and real-time regulation",
+    },
+    {
+      name: "Level 3 — Somatic Coaching + Bodywork",
+      format: "Hybrid",
+      support: "Coaching plus bodywork sessions booked privately",
+    },
+  ];
 
-export default function BodyworkOptionsPage() {
   return (
-    <main className="min-h-screen bg-slate-900 text-stone-100">
-      <div className="mx-auto max-w-6xl px-6 py-16 md:py-24 space-y-16">
-        <section className="space-y-5 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-amber-200/90">Bodywork Options</p>
-          <h1 className="text-4xl font-semibold leading-tight md:text-6xl">Online + In-Person Somatic Coaching</h1>
-          <p className="mx-auto max-w-3xl text-lg text-stone-300">
-            A calm, structured coaching model focused on nervous system education, safety, awareness, regulation, and
-            embodied daily function.
+    <main className="bg-[#d9d0c6] text-neutral-900 min-h-screen">
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h1 className="text-4xl font-serif leading-tight">Online & In-Person Somatic Coaching Options</h1>
+        <p className="mt-4 max-w-2xl text-lg text-neutral-700">
+          Choose the level of support that fits your needs — from private online coaching to in-person somatic
+          bodywork in Houston.
+        </p>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 grid gap-6 lg:grid-cols-3 pb-16">
+        <div className="bg-white p-6 rounded-2xl">
+          <h2 className="font-serif text-xl mb-2">🥉 Level 1 — Online Coaching</h2>
+          <p className="text-sm text-neutral-700">
+            Private, guided coaching sessions focused on awareness, breath, and nervous system regulation.
           </p>
-          <p className="mx-auto max-w-3xl rounded-2xl border border-amber-200/30 bg-slate-800/70 px-5 py-4 text-sm text-amber-100 md:text-base">
-            All tiers include somatic coaching. Houston in-person bodywork access is available for members and booked
-            separately.
+          <p className="mt-4 text-sm italic text-neutral-600">Learn your body in privacy and safety.</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-2xl">
+          <h2 className="font-serif text-xl mb-2">🥈 Level 2 — In-Person Coaching (No Contact)</h2>
+          <p className="text-sm text-neutral-700">
+            Live, guided sessions focused on embodiment, presence, and real-time nervous system regulation.
           </p>
-        </section>
+          <p className="mt-4 text-sm italic text-neutral-600">Be guided, grounded, and supported.</p>
+        </div>
 
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold">Tier Structure</h2>
-          <div className="grid gap-5 md:grid-cols-3">
-            <article className="rounded-2xl border border-slate-700 bg-slate-800 p-6 space-y-3">
-              <h3 className="text-xl font-semibold text-amber-100">Level 1</h3>
-              <p className="text-stone-300">Online foundation program for core nervous system regulation skills.</p>
-            </article>
-            <article className="rounded-2xl border border-slate-700 bg-slate-800 p-6 space-y-3">
-              <h3 className="text-xl font-semibold text-amber-100">Level 2</h3>
-              <p className="text-stone-300">Online intensive with weekly coaching and personalized support plans.</p>
-            </article>
-            <article className="rounded-2xl border border-amber-200/50 bg-slate-800 p-6 space-y-3">
-              <h3 className="text-xl font-semibold text-amber-100">Level 3</h3>
-              <p className="text-stone-300">Hybrid private track with coaching plus optional in-person add-on sessions.</p>
-            </article>
-          </div>
-        </section>
+        <div className="bg-[#0a0f3f] text-white p-6 rounded-2xl">
+          <h2 className="font-serif text-xl mb-2">🥇 Level 3 — Somatic Coaching + Bodywork</h2>
+          <p className="text-sm text-white/80">
+            Full somatic integration through structured bodywork designed to release tension and support regulation.
+          </p>
+          <p className="mt-4 text-sm italic text-white/70">Experience deeper regulation through guided support.</p>
+        </div>
+      </section>
 
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold">Program Modules</h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {curriculumItems.map((item) => (
-              <details key={item.title} className="group rounded-xl border border-slate-700 bg-slate-800 p-4">
-                <summary className="cursor-pointer list-none font-medium text-amber-100 flex items-center justify-between gap-4">
-                  <span>{item.title}</span>
-                  <span className="text-xs uppercase tracking-wide text-stone-400 group-open:hidden">Open</span>
-                  <span className="text-xs uppercase tracking-wide text-stone-400 hidden group-open:inline">Close</span>
-                </summary>
-                <p className="pt-3 text-sm text-stone-300">{item.detail}</p>
-              </details>
-            ))}
-          </div>
-        </section>
+      <section className="max-w-4xl mx-auto px-6 pb-20">
+        <h2 className="text-2xl font-serif mb-6">What You’ll Experience</h2>
+        <div className="space-y-3">
+          {dropdownItems.map((item) => (
+            <details key={item.title} className="bg-white rounded-xl p-4 cursor-pointer">
+              <summary className="font-medium">{item.title}</summary>
+              <p className="mt-3 text-sm text-neutral-700">{item.content}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold">Tier Breakdown Comparison</h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-700">
-            <table className="min-w-full border-collapse bg-slate-800 text-left text-sm">
-              <thead>
-                <tr className="border-b border-slate-700 text-amber-100">
-                  <th className="px-4 py-3 font-semibold">Tier</th>
-                  <th className="px-4 py-3 font-semibold">Format</th>
-                  <th className="px-4 py-3 font-semibold">Cadence</th>
-                  <th className="px-4 py-3 font-semibold">Support</th>
-                  <th className="px-4 py-3 font-semibold">Best For</th>
+      <section className="max-w-6xl mx-auto px-6 pb-20">
+        <h2 className="text-2xl font-serif mb-6">Tier Breakdown Comparison</h2>
+        <div className="overflow-x-auto rounded-2xl border border-[#0a0f3f]/20">
+          <table className="min-w-full bg-white text-left text-sm">
+            <thead>
+              <tr className="bg-[#0a0f3f] text-white">
+                <th className="px-4 py-3 font-medium">Tier</th>
+                <th className="px-4 py-3 font-medium">Format</th>
+                <th className="px-4 py-3 font-medium">Primary Focus</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tierBreakdown.map((tier) => (
+                <tr key={tier.name} className="border-t border-neutral-200">
+                  <td className="px-4 py-3 font-medium">{tier.name}</td>
+                  <td className="px-4 py-3 text-neutral-700">{tier.format}</td>
+                  <td className="px-4 py-3 text-neutral-700">{tier.support}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {tierComparison.map((tier) => (
-                  <tr key={tier.level} className="border-b border-slate-700/80 align-top last:border-b-0">
-                    <td className="px-4 py-3 font-medium text-stone-100">{tier.level}</td>
-                    <td className="px-4 py-3 text-stone-300">{tier.format}</td>
-                    <td className="px-4 py-3 text-stone-300">{tier.cadence}</td>
-                    <td className="px-4 py-3 text-stone-300">{tier.support}</td>
-                    <td className="px-4 py-3 text-stone-300">{tier.bestFor}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-        <section className="rounded-3xl border border-amber-200/40 bg-slate-800 p-8 text-center space-y-4">
-          <h2 className="text-3xl font-semibold">Request Session Information</h2>
-          <p className="mx-auto max-w-2xl text-stone-300">
-            Share your email to receive program details, tier recommendations, and next steps for online or in-person
-            support.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/membership-details"
-              className="rounded-full bg-amber-200 px-6 py-3 font-medium text-slate-900 transition hover:bg-amber-100"
-            >
-              Get Session Details
-            </Link>
-            <Link
-              href="/membership-details#capture"
-              className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
-            >
-              Request Private Session Info
-            </Link>
-          </div>
-        </section>
-      </div>
+      <section className="max-w-4xl mx-auto px-6 pb-20 text-center">
+        <h2 className="text-2xl font-serif">Request Private Session Details</h2>
+        <p className="mt-4 text-neutral-700">
+          Learn more about availability, pricing, and which option is best for you.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link href="/membership-details" className="px-6 py-3 bg-[#0a0f3f] text-white rounded-full">
+            Get Session Details
+          </Link>
+          <Link
+            href="/membership-details#capture"
+            className="px-6 py-3 bg-white border border-[#0a0f3f] text-[#0a0f3f] rounded-full"
+          >
+            Request Private Session Info
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
