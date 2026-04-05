@@ -42,6 +42,12 @@ export default function HomePage() {
             >
               View Membership Options
             </Link>
+            <Link
+              href="/bodywork-options"
+              className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
+            >
+              View Bodywork Options
+            </Link>
           </div>
           <p className="text-sm text-stone-400">
             Submit your email to receive membership information + your 40% off coupon.

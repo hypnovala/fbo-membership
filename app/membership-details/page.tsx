@@ -25,12 +25,20 @@ export default function MembershipDetailsPage() {
           <p className="mx-auto max-w-3xl text-lg text-stone-300">
             A private membership designed to help you regulate, reconnect, and expand your capacity to feel.
           </p>
-          <Link
-            href="#capture"
-            className="inline-flex rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
-          >
-            View Membership Options
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="#capture"
+              className="inline-flex rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
+            >
+              View Membership Options
+            </Link>
+            <Link
+              href="/bodywork-options"
+              className="inline-flex rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
+            >
+              View Bodywork Options
+            </Link>
+          </div>
         </section>
 
         <section className="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-8">
