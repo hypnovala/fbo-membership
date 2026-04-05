@@ -4,6 +4,7 @@ This repository contains a Tailwind + Next.js App Router implementation for a tw
 
 - `/` (`app/page.tsx`) — homepage with high-conversion messaging, tier overview, and CTA links.
 - `/membership-details` (`app/membership-details/page.tsx`) — detailed tier breakdown and email capture section.
+- `/bodywork-options` (`app/bodywork-options/page.tsx`) — structured online + in-person somatic coaching tiers with accordion modules and comparison table.
 
 ## Membership and Messaging Rules
 
@@ -37,6 +38,7 @@ Then open `http://localhost:3000`.
 - `app/globals.css`
 - `app/page.tsx`
 - `app/membership-details/page.tsx`
+- `app/bodywork-options/page.tsx`
 - `homepage.md`
 - `membership-details.md`
 - Tailwind/Next.js config files (`tailwind.config.ts`, `postcss.config.js`, `next.config.mjs`, `tsconfig.json`)
