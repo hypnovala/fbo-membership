@@ -39,4 +39,4 @@ Then open `http://localhost:3000`.
 - `app/membership-details/page.tsx`
 - `homepage.md`
 - `membership-details.md`
-- Tailwind/Next.js config files (`tailwind.config.ts`, `postcss.config.js`, `next.config.ts`, `tsconfig.json`)
+- Tailwind/Next.js config files (`tailwind.config.ts`, `postcss.config.js`, `next.config.mjs`, `tsconfig.json`)
