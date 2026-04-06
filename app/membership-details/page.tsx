@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const tierOneIncludes = [
+  "Full FBO Course access",
   "Guided somatic reset practices",
   "Nervous system education",
   "Brock Somatic Check-In App access",
@@ -10,7 +11,7 @@ const tierOneIncludes = [
 
 const tierTwoIncludes = [
   "Weekly 1:1 calls with Brock",
-  "Everything in Tier 1",
+  "Everything in Tier 1 (including the FBO Course)",
   "Personalized nervous system support",
   "Ongoing guidance for regulation and awareness practices",
 ];
@@ -53,8 +54,8 @@ export default function MembershipDetailsPage() {
         <section className="space-y-6">
           <h2 className="text-3xl font-semibold">Membership Options</h2>
           <p className="rounded-2xl border border-rose-200/40 bg-rose-950/30 p-4 text-rose-100">
-            All membership tiers unlock access to private Houston bodywork sessions. Bodywork is booked separately and
-            not included in monthly pricing.
+            All membership tiers include full FBO Course access and unlock access to private Houston bodywork sessions.
+            Bodywork is booked separately and not included in monthly pricing.
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
