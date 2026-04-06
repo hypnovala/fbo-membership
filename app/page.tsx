@@ -20,6 +20,29 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-stone-950 text-stone-100">
       <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 space-y-16">
+        <section className="rounded-3xl border border-amber-300/30 bg-amber-950/20 p-6 md:p-8 space-y-6">
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80">FBO Course</p>
+            <h2 className="text-3xl font-semibold">Start with the 35-Minute FBO Course</h2>
+            <p className="text-stone-300">
+              Get a quick preview of the course experience before diving deeper into membership options.
+            </p>
+          </div>
+
+          <div className="flex items-center justify-center rounded-2xl border border-dashed border-amber-200/40 bg-stone-900/70 aspect-video text-stone-400">
+            Image Holder
+          </div>
+
+          <a
+            href="https://fbo-35min-course.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex rounded-full bg-amber-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-amber-100"
+          >
+            Course Preview
+          </a>
+        </section>
+
         <section className="space-y-6 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-rose-200/80">Private Membership</p>
           <h1 className="text-4xl font-semibold leading-tight md:text-6xl">
