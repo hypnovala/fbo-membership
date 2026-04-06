@@ -39,6 +39,15 @@ Then open `http://localhost:3000`.
 - `app/page.tsx`
 - `app/membership-details/page.tsx`
 - `app/bodywork-options/page.tsx`
+- `public/images/README.md` (instructions for uploading the homepage course image)
 - `homepage.md`
 - `membership-details.md`
 - Tailwind/Next.js config files (`tailwind.config.ts`, `postcss.config.js`, `next.config.mjs`, `tsconfig.json`)
+
+## Replacing the homepage course image (GitHub upload)
+
+1. In GitHub, open the `public/images` folder.
+2. Upload your photo and name it exactly: `fbo-course-preview.jpg`.
+3. Commit the file to your branch.
+
+The homepage FBO course section will automatically use that image.

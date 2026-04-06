@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const membershipHighlights = {
   tier1: [
@@ -29,8 +30,15 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex items-center justify-center rounded-2xl border border-dashed border-amber-200/40 bg-stone-900/70 aspect-video text-stone-400">
-            Image Holder
+          <div className="relative overflow-hidden rounded-2xl border border-amber-200/30 bg-stone-900/70 aspect-video">
+            <Image
+              src="/images/fbo-course-preview.jpg"
+              alt="FBO course preview"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 896px, 100vw"
+              priority
+            />
           </div>
 
           <a
