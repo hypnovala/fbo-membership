@@ -37,12 +37,9 @@ export default function MembershipDetailsPage() {
         </section>
 
         <section className="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-8">
-          <h2 className="text-3xl font-semibold">This is not another course.</h2>
-          <p className="text-stone-300">This is a guided experience.</p>
-          <p className="text-stone-300">You’re not here to perform. You’re here to feel.</p>
-          <p className="text-stone-300">
-            Each session is designed to bring your body out of tension and back into presence.
-          </p>
+          <h2 className="text-3xl font-semibold">This isn&apos;t a course. It&apos;s a coming home.</h2>
+          <p className="text-stone-300">To your body. To sensation. To yourself.</p>
+          <p className="text-stone-300">One guided session at a time.</p>
         </section>
 
         <section className="space-y-6">
@@ -108,9 +105,12 @@ export default function MembershipDetailsPage() {
               <button type="submit" className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900">
                 Join Membership
               </button>
-              <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
+              <Link
+                href="https://fbo-membership.vercel.app/"
+                className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100"
+              >
                 Get Membership Details
-              </button>
+              </Link>
             </div>
           </form>
           <p className="text-sm text-stone-400">You’ll receive your coupon and next steps instantly.</p>
