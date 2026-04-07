@@ -3,6 +3,7 @@ import Image from "next/image";
 
 const membershipHighlights = {
   tier1: [
+    "Full FBO Course access",
     "Guided somatic reset practices",
     "Nervous system education",
     "Brock Somatic Check-In App access",
@@ -11,7 +12,7 @@ const membershipHighlights = {
   ],
   tier2: [
     "Weekly 1:1 calls with Brock",
-    "Everything in Tier 1",
+    "Everything in Tier 1 (including the FBO Course)",
     "Personalized nervous system support",
     "Ongoing guidance for regulation and awareness practices",
   ],
@@ -68,12 +69,6 @@ export default function HomePage() {
               Get Membership Details
             </Link>
             <Link
-              href="/membership-details"
-              className="rounded-full border border-rose-200/50 px-6 py-3 font-medium text-rose-100 transition hover:border-rose-100"
-            >
-              View Membership Options
-            </Link>
-            <Link
               href="/bodywork-options"
               className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
             >
@@ -106,8 +101,8 @@ export default function HomePage() {
         <section className="space-y-8">
           <h2 className="text-3xl font-semibold">Choose your level of support</h2>
           <p className="rounded-2xl border border-rose-200/30 bg-rose-950/30 p-4 text-sm md:text-base text-rose-100">
-            All membership tiers unlock access to private Houston bodywork sessions. Bodywork is booked separately and
-            not included in monthly pricing.
+            All membership tiers include full FBO Course access and unlock access to private Houston bodywork sessions.
+            Bodywork is booked separately and not included in monthly pricing.
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -160,12 +155,6 @@ export default function HomePage() {
               className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
             >
               Join Membership
-            </Link>
-            <Link
-              href="/membership-details"
-              className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100 transition hover:border-stone-400"
-            >
-              View Membership Options
             </Link>
             <Link
               href="/membership-details"

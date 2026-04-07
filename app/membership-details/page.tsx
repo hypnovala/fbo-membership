@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const tierOneIncludes = [
+  "Full FBO Course access",
   "Guided somatic reset practices",
   "Nervous system education",
   "Brock Somatic Check-In App access",
@@ -10,7 +11,7 @@ const tierOneIncludes = [
 
 const tierTwoIncludes = [
   "Weekly 1:1 calls with Brock",
-  "Everything in Tier 1",
+  "Everything in Tier 1 (including the FBO Course)",
   "Personalized nervous system support",
   "Ongoing guidance for regulation and awareness practices",
 ];
@@ -26,12 +27,6 @@ export default function MembershipDetailsPage() {
             A private membership designed to help you regulate, reconnect, and expand your capacity to feel.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="#capture"
-              className="inline-flex rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
-            >
-              View Membership Options
-            </Link>
             <Link
               href="/bodywork-options"
               className="inline-flex rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
@@ -53,8 +48,8 @@ export default function MembershipDetailsPage() {
         <section className="space-y-6">
           <h2 className="text-3xl font-semibold">Membership Options</h2>
           <p className="rounded-2xl border border-rose-200/40 bg-rose-950/30 p-4 text-rose-100">
-            All membership tiers unlock access to private Houston bodywork sessions. Bodywork is booked separately and
-            not included in monthly pricing.
+            All membership tiers include full FBO Course access and unlock access to private Houston bodywork sessions.
+            Bodywork is booked separately and not included in monthly pricing.
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -112,9 +107,6 @@ export default function MembershipDetailsPage() {
             <div className="flex flex-wrap gap-3">
               <button type="submit" className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900">
                 Join Membership
-              </button>
-              <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
-                View Membership Options
               </button>
               <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
                 Get Membership Details
