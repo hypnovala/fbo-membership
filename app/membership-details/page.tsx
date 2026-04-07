@@ -28,12 +28,6 @@ export default function MembershipDetailsPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="#capture"
-              className="inline-flex rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
-            >
-              View Membership Options
-            </Link>
-            <Link
               href="/bodywork-options"
               className="inline-flex rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
             >
@@ -113,9 +107,6 @@ export default function MembershipDetailsPage() {
             <div className="flex flex-wrap gap-3">
               <button type="submit" className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900">
                 Join Membership
-              </button>
-              <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
-                View Membership Options
               </button>
               <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
                 Get Membership Details

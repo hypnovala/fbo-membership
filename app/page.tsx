@@ -69,12 +69,6 @@ export default function HomePage() {
               Get Membership Details
             </Link>
             <Link
-              href="/membership-details"
-              className="rounded-full border border-rose-200/50 px-6 py-3 font-medium text-rose-100 transition hover:border-rose-100"
-            >
-              View Membership Options
-            </Link>
-            <Link
               href="/bodywork-options"
               className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
             >
@@ -161,12 +155,6 @@ export default function HomePage() {
               className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
             >
               Join Membership
-            </Link>
-            <Link
-              href="/membership-details"
-              className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100 transition hover:border-stone-400"
-            >
-              View Membership Options
             </Link>
             <Link
               href="/membership-details"
