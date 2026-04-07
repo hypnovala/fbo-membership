@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const tierOneIncludes = [
+  "Full FBO Course access",
   "Guided somatic reset practices",
   "Nervous system education",
   "Brock Somatic Check-In App access",
@@ -10,7 +11,7 @@ const tierOneIncludes = [
 
 const tierTwoIncludes = [
   "Weekly 1:1 calls with Brock",
-  "Everything in Tier 1",
+  "Everything in Tier 1 (including the FBO Course)",
   "Personalized nervous system support",
   "Ongoing guidance for regulation and awareness practices",
 ];
@@ -27,12 +28,6 @@ export default function MembershipDetailsPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="#capture"
-              className="inline-flex rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
-            >
-              View Membership Options
-            </Link>
-            <Link
               href="/bodywork-options"
               className="inline-flex rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
             >
@@ -42,19 +37,16 @@ export default function MembershipDetailsPage() {
         </section>
 
         <section className="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-8">
-          <h2 className="text-3xl font-semibold">This is not another course.</h2>
-          <p className="text-stone-300">This is a guided experience.</p>
-          <p className="text-stone-300">You’re not here to perform. You’re here to feel.</p>
-          <p className="text-stone-300">
-            Each session is designed to bring your body out of tension and back into presence.
-          </p>
+          <h2 className="text-3xl font-semibold">This isn&apos;t a course. It&apos;s a coming home.</h2>
+          <p className="text-stone-300">To your body. To sensation. To yourself.</p>
+          <p className="text-stone-300">One guided session at a time.</p>
         </section>
 
         <section className="space-y-6">
           <h2 className="text-3xl font-semibold">Membership Options</h2>
           <p className="rounded-2xl border border-rose-200/40 bg-rose-950/30 p-4 text-rose-100">
-            All membership tiers unlock access to private Houston bodywork sessions. Bodywork is booked separately and
-            not included in monthly pricing.
+            All membership tiers include full FBO Course access and unlock access to private Houston bodywork sessions.
+            Bodywork is booked separately and not included in monthly pricing.
           </p>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -113,12 +105,12 @@ export default function MembershipDetailsPage() {
               <button type="submit" className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900">
                 Join Membership
               </button>
-              <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
-                View Membership Options
-              </button>
-              <button type="submit" className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100">
+              <Link
+                href="https://fbo-membership.vercel.app/"
+                className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100"
+              >
                 Get Membership Details
-              </button>
+              </Link>
             </div>
           </form>
           <p className="text-sm text-stone-400">You’ll receive your coupon and next steps instantly.</p>
