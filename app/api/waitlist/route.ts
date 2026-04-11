@@ -1,20 +1,51 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
+    const apiKey = process.env.RESEND_API_KEY;
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const teamEmail = process.env.WAITLIST_TEAM_EMAIL;
 
-    if (!email) {
-      return new Response(JSON.stringify({ error: "Email required" }), { status: 400 });
+    if (!email || typeof email !== "string") {
+      return new Response(JSON.stringify({ success: false, error: "A valid email is required." }), { status: 400 });
     }
 
-    await resend.emails.send({
-      from: "FBO <hello@brockjohn.com>",
-      to: email,
-      subject: "Your Membership Access + 40% Off",
-      html: `
+    const trimmedEmail = email.trim().toLowerCase();
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
+
+    if (!isValidEmail) {
+      return new Response(JSON.stringify({ success: false, error: "Please enter a valid email address." }), {
+        status: 400,
+      });
+    }
+
+    if (!apiKey || !fromEmail || !teamEmail) {
+      console.error("Waitlist env configuration missing", {
+        hasResendApiKey: Boolean(apiKey),
+        hasResendFromEmail: Boolean(fromEmail),
+        hasWaitlistTeamEmail: Boolean(teamEmail),
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Email service is not configured. Please try again shortly.",
+        }),
+        { status: 500 },
+      );
+    }
+
+    console.info("Sending waitlist onboarding email", { to: trimmedEmail, from: fromEmail });
+    const userEmailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: trimmedEmail,
+        subject: "Your Membership Access + 40% Off",
+        html: `
         <div style="font-family: sans-serif; background:#ffffff; padding:40px;">
           <h2 style="color:#1F2937;">Welcome inside.</h2>
 
@@ -40,10 +71,102 @@ export async function POST(req: Request) {
           </p>
         </div>
       `,
+      }),
     });
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
-  } catch {
-    return new Response(JSON.stringify({ error: "Email failed" }), { status: 500 });
+    const userEmailJson = (await userEmailResponse.json().catch(() => null)) as
+      | { id?: string; error?: { message?: string } }
+      | null;
+
+    if (!userEmailResponse.ok) {
+      const resendMessage = userEmailJson?.error?.message ?? "Unknown Resend API error";
+      console.error("Failed to send onboarding email", {
+        status: userEmailResponse.status,
+        resendMessage,
+        response: userEmailJson,
+        to: trimmedEmail,
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: `Resend onboarding failed: ${resendMessage}`,
+        }),
+        { status: 502 },
+      );
+    }
+
+    console.info("Onboarding email sent", {
+      to: trimmedEmail,
+      resendId: userEmailJson?.id,
+    });
+
+    console.info("Sending internal waitlist notification", {
+      to: teamEmail,
+      subscriberEmail: trimmedEmail,
+    });
+    const internalNotificationResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: teamEmail,
+        subject: "New FBO Membership Waitlist Lead",
+        html: `
+        <div style="font-family: sans-serif; background:#ffffff; padding:32px;">
+          <h2 style="color:#111827; margin:0 0 12px 0;">New waitlist submission</h2>
+          <p style="color:#374151; margin:0 0 8px 0;">
+            A new user requested membership access.
+          </p>
+          <p style="color:#111827; font-weight:700; margin:0;">
+            ${trimmedEmail}
+          </p>
+        </div>
+      `,
+      }),
+    });
+
+    const internalNotificationJson = (await internalNotificationResponse.json().catch(() => null)) as
+      | { id?: string; error?: { message?: string } }
+      | null;
+
+    if (!internalNotificationResponse.ok) {
+      const resendMessage = internalNotificationJson?.error?.message ?? "Unknown Resend API error";
+      console.error("Failed to send internal notification email", {
+        status: internalNotificationResponse.status,
+        resendMessage,
+        response: internalNotificationJson,
+        to: teamEmail,
+        subscriberEmail: trimmedEmail,
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: `Onboarding sent but internal notification failed: ${resendMessage}`,
+        }),
+        { status: 502 },
+      );
+    }
+
+    console.info("Internal notification email sent", {
+      to: teamEmail,
+      resendId: internalNotificationJson?.id,
+    });
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "Waitlist emails sent successfully.",
+      }),
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("Unexpected waitlist route failure", error);
+    const message = error instanceof Error ? error.message : "Unexpected server error";
+    return new Response(JSON.stringify({ success: false, error: message }), { status: 500 });
   }
 }
