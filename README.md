@@ -25,6 +25,16 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
+### Environment variables
+
+Create a `.env.local` file with:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+```
+
+This key is used by `app/api/waitlist/route.ts` to send the membership onboarding email after form submission.
+
 ## Deploy on Vercel
 
 1. Push this repo to GitHub.
