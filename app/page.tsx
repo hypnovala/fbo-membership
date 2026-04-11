@@ -1,3 +1,6 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,6 +22,43 @@ const membershipHighlights = {
 };
 
 export default function HomePage() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+
+    if (!email.trim()) {
+      setError("Please enter your email.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Email failed");
+      }
+
+      setIsSuccess(true);
+      setEmail("");
+    } catch {
+      setError("Unable to submit right now. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-stone-950 text-stone-100">
       <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 space-y-16">
@@ -156,21 +196,34 @@ export default function HomePage() {
 
         <section className="text-center space-y-5">
           <h2 className="text-3xl font-semibold">Explore the membership.</h2>
-          <p className="text-stone-300">Submit your email to receive full details and a private invitation.</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/membership-details"
-              className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
-            >
-              Join Membership
-            </Link>
-            <Link
-              href="/membership-details"
-              className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100 transition hover:border-stone-400"
-            >
-              Get Membership Details
-            </Link>
-          </div>
+          <p className="text-stone-300">Submit your email and get immediate access + your 40% off code.</p>
+          <form className="mx-auto max-w-xl space-y-4" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Email address"
+              required
+              className="w-full rounded-full border border-stone-600 bg-stone-900 px-5 py-3 text-stone-100 placeholder:text-stone-400 focus:border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-200/20"
+            />
+            <div className="flex flex-wrap justify-center gap-3">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
+              >
+                {isSubmitting ? "Submitting..." : "Join Membership"}
+              </button>
+              <Link
+                href="/membership-details"
+                className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100 transition hover:border-stone-400"
+              >
+                Get Membership Details
+              </Link>
+            </div>
+          </form>
+          {isSuccess && <p className="text-sm text-emerald-300">Check your email for your access + discount</p>}
+          {error && <p className="text-sm text-rose-300">{error}</p>}
           <p className="text-sm text-stone-400">Includes your 40% off first month coupon.</p>
         </section>
       </div>
