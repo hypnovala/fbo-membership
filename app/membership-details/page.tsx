@@ -90,30 +90,36 @@ export default function MembershipDetailsPage() {
           </ul>
         </section>
 
-        <section id="capture" className="rounded-3xl border border-stone-800 bg-stone-900 p-8 space-y-5">
-          <h2 className="text-3xl font-semibold">Get Membership Details + 40% Off</h2>
-          <p className="text-stone-300">
+        <section
+          id="capture"
+          className="mx-auto max-w-3xl space-y-5 rounded-2xl border border-[#E5E7EB] bg-white p-8 shadow-[0_16px_40px_rgba(17,24,39,0.08)]"
+        >
+          <h2 className="text-3xl font-bold text-[#1F2937]">Get Membership Details + 40% Off</h2>
+          <p className="text-[#6B7280]">
             Enter your email below to receive full membership information and your 40% off first month coupon.
           </p>
           <form className="space-y-4">
             <input
               type="email"
               placeholder="Email address"
-              className="w-full rounded-xl border border-stone-700 bg-stone-950 px-4 py-3 text-stone-100 placeholder:text-stone-500"
+              className="w-full rounded-2xl border border-[#D1D5DB] bg-white px-4 py-3 text-[#111827] placeholder:text-[#9CA3AF] focus:border-[#111827] focus:outline-none focus:ring-2 focus:ring-[#111827]/10"
             />
             <div className="flex flex-wrap gap-3">
-              <button type="submit" className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900">
+              <button
+                type="submit"
+                className="rounded-full bg-[#E7C9C9] px-6 py-3 font-medium text-[#111111] transition hover:bg-[#DDBABA]"
+              >
                 Join Membership
               </button>
               <Link
                 href="https://fbo-membership.vercel.app/"
-                className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100"
+                className="rounded-full border border-[#D1D5DB] bg-transparent px-6 py-3 font-medium text-[#374151] transition hover:bg-[#F9FAFB]"
               >
                 Get Membership Details
               </Link>
             </div>
           </form>
-          <p className="text-sm text-stone-400">You’ll receive your coupon and next steps instantly.</p>
+          <p className="text-sm text-[#9CA3AF]">You’ll receive your coupon and next steps instantly.</p>
         </section>
 
         <section className="space-y-3 text-center">
