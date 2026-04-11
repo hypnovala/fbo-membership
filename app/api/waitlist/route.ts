@@ -1,20 +1,27 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
+    const apiKey = process.env.RESEND_API_KEY;
 
     if (!email) {
       return new Response(JSON.stringify({ error: "Email required" }), { status: 400 });
     }
 
-    await resend.emails.send({
-      from: "FBO <hello@brockjohn.com>",
-      to: email,
-      subject: "Your Membership Access + 40% Off",
-      html: `
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: "Email service unavailable" }), { status: 500 });
+    }
+
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "FBO <hello@brockjohn.com>",
+        to: email,
+        subject: "Your Membership Access + 40% Off",
+        html: `
         <div style="font-family: sans-serif; background:#ffffff; padding:40px;">
           <h2 style="color:#1F2937;">Welcome inside.</h2>
 
@@ -40,10 +47,16 @@ export async function POST(req: Request) {
           </p>
         </div>
       `,
+      }),
     });
 
+    if (!resendResponse.ok) {
+      throw new Error("Email request failed");
+    }
+
     return new Response(JSON.stringify({ success: true }), { status: 200 });
-  } catch {
+  } catch (error) {
+    console.error("Resend email failed:", error);
     return new Response(JSON.stringify({ error: "Email failed" }), { status: 500 });
   }
 }
