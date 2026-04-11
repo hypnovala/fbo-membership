@@ -118,6 +118,14 @@ export default function HomePage() {
                   <li key={item}>✨ {item}</li>
                 ))}
               </ul>
+              <a
+                href="https://fbo-35min-course.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full border border-amber-200/70 px-5 py-2.5 text-sm font-medium text-amber-100 transition hover:border-amber-100"
+              >
+                Preview Course
+              </a>
             </article>
 
             <article className="rounded-3xl border border-rose-200/30 bg-gradient-to-b from-rose-950/30 to-stone-900 p-6 space-y-4">

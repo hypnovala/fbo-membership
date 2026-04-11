@@ -1,3 +1,6 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 
 const tierOneIncludes = [
@@ -17,6 +20,43 @@ const tierTwoIncludes = [
 ];
 
 export default function MembershipDetailsPage() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+
+    if (!email.trim()) {
+      setError("Please enter your email.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Email failed");
+      }
+
+      setIsSuccess(true);
+      setEmail("");
+    } catch {
+      setError("Unable to submit right now. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#120f10] text-stone-100">
       <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 space-y-14">
@@ -62,6 +102,14 @@ export default function MembershipDetailsPage() {
                   <li key={item}>• {item}</li>
                 ))}
               </ul>
+              <a
+                href="https://fbo-35min-course.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full border border-amber-200/70 px-5 py-2.5 text-sm font-medium text-amber-100 transition hover:border-amber-100"
+              >
+                Preview Course
+              </a>
             </article>
 
             <article className="rounded-3xl border border-rose-300/40 bg-gradient-to-b from-rose-950/30 to-stone-900 p-6 space-y-4">
@@ -98,18 +146,22 @@ export default function MembershipDetailsPage() {
           <p className="text-[#6B7280]">
             Enter your email below to receive full membership information and your 40% off first month coupon.
           </p>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <input
               type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               placeholder="Email address"
+              required
               className="w-full rounded-2xl border border-[#D1D5DB] bg-white px-4 py-3 text-[#111827] placeholder:text-[#9CA3AF] focus:border-[#111827] focus:outline-none focus:ring-2 focus:ring-[#111827]/10"
             />
             <div className="flex flex-wrap gap-3">
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="rounded-full bg-[#E7C9C9] px-6 py-3 font-medium text-[#111111] transition hover:bg-[#DDBABA]"
               >
-                Join Membership
+                {isSubmitting ? "Submitting..." : "Join Membership"}
               </button>
               <Link
                 href="https://fbo-membership.vercel.app/"
@@ -119,6 +171,8 @@ export default function MembershipDetailsPage() {
               </Link>
             </div>
           </form>
+          {isSuccess && <p className="text-sm text-[#047857]">Check your email for your access + discount</p>}
+          {error && <p className="text-sm text-[#B91C1C]">{error}</p>}
           <p className="text-sm text-[#9CA3AF]">You’ll receive your coupon and next steps instantly.</p>
         </section>
 
