@@ -45,13 +45,14 @@ export default function MembershipDetailsPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Email failed");
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error ?? "Email failed");
       }
 
       setIsSuccess(true);
       setEmail("");
-    } catch {
-      setError("Unable to submit right now. Please try again.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unable to submit right now. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -171,7 +172,7 @@ export default function MembershipDetailsPage() {
               </Link>
             </div>
           </form>
-          {isSuccess && <p className="text-sm text-[#047857]">Check your email for your access + discount</p>}
+          {isSuccess && <p className="text-sm text-[#047857]">Check your email for access + discount</p>}
           {error && <p className="text-sm text-[#B91C1C]">{error}</p>}
           <p className="text-sm text-[#9CA3AF]">You’ll receive your coupon and next steps instantly.</p>
         </section>
