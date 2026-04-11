@@ -47,13 +47,14 @@ export default function HomePage() {
       });
 
       if (!response.ok) {
-        throw new Error("Email failed");
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error ?? "Email failed");
       }
 
       setIsSuccess(true);
       setEmail("");
-    } catch {
-      setError("Unable to submit right now. Please try again.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unable to submit right now. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
