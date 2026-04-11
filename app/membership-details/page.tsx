@@ -172,7 +172,7 @@ export default function MembershipDetailsPage() {
               </Link>
             </div>
           </form>
-          {isSuccess && <p className="text-sm text-[#047857]">Check your email for your access + discount</p>}
+          {isSuccess && <p className="text-sm text-[#047857]">Check your email for access + discount</p>}
           {error && <p className="text-sm text-[#B91C1C]">{error}</p>}
           <p className="text-sm text-[#9CA3AF]">You’ll receive your coupon and next steps instantly.</p>
         </section>

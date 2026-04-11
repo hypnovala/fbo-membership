@@ -223,7 +223,7 @@ export default function HomePage() {
               </Link>
             </div>
           </form>
-          {isSuccess && <p className="text-sm text-emerald-300">Check your email for your access + discount</p>}
+          {isSuccess && <p className="text-sm text-emerald-300">Check your email for access + discount</p>}
           {error && <p className="text-sm text-rose-300">{error}</p>}
           <p className="text-sm text-stone-400">Includes your 40% off first month coupon.</p>
         </section>

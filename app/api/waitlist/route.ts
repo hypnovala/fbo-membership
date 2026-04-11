@@ -1,172 +1,85 @@
+import { Resend } from "resend";
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
     const apiKey = process.env.RESEND_API_KEY;
-    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const from = process.env.RESEND_FROM_EMAIL;
     const teamEmail = process.env.WAITLIST_TEAM_EMAIL;
 
-    if (!email || typeof email !== "string") {
-      return new Response(JSON.stringify({ success: false, error: "A valid email is required." }), { status: 400 });
+    if (!apiKey) {
+      return Response.json({ error: "Missing RESEND_API_KEY" }, { status: 500 });
     }
 
-    const trimmedEmail = email.trim().toLowerCase();
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
-
-    if (!isValidEmail) {
-      return new Response(JSON.stringify({ success: false, error: "Please enter a valid email address." }), {
-        status: 400,
-      });
+    if (!from) {
+      return Response.json({ error: "Missing RESEND_FROM_EMAIL" }, { status: 500 });
     }
 
-    if (!apiKey || !fromEmail || !teamEmail) {
-      console.error("Waitlist env configuration missing", {
-        hasResendApiKey: Boolean(apiKey),
-        hasResendFromEmail: Boolean(fromEmail),
-        hasWaitlistTeamEmail: Boolean(teamEmail),
-      });
-
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: "Email service is not configured. Please try again shortly.",
-        }),
-        { status: 500 },
-      );
+    if (!teamEmail) {
+      return Response.json({ error: "Missing WAITLIST_TEAM_EMAIL" }, { status: 500 });
     }
 
-    console.info("Sending waitlist onboarding email", { to: trimmedEmail, from: fromEmail });
-    const userEmailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: trimmedEmail,
-        subject: "Your Membership Access + 40% Off",
-        html: `
-        <div style="font-family: sans-serif; background:#ffffff; padding:40px;">
-          <h2 style="color:#1F2937;">Welcome inside.</h2>
+    const body = await req.json();
+    const email = typeof body?.email === "string" ? body.email.trim() : "";
 
-          <p style="color:#6B7280;">
-            You now have access to the membership experience.
+    if (!email || !isValidEmail(email)) {
+      return Response.json({ error: "Valid email required" }, { status: 400 });
+    }
+
+    const resend = new Resend(apiKey);
+
+    const userSend = await resend.emails.send({
+      from,
+      to: email,
+      subject: "Your Membership Access + 40% Off",
+      html: `
+        <div style="font-family: Arial, sans-serif; background:#ffffff; padding:40px; color:#111827;">
+          <h2 style="margin:0 0 12px;">Welcome inside.</h2>
+          <p style="margin:0 0 16px; color:#6B7280;">
+            Your membership details are ready.
           </p>
-
           <a href="https://fbo-membership.vercel.app"
-             style="display:inline-block;margin-top:20px;padding:12px 20px;background:#E7C9C9;color:#111;text-decoration:none;border-radius:8px;">
+             style="display:inline-block;padding:12px 20px;background:#E7C9C9;color:#111111;text-decoration:none;border-radius:10px;">
              Enter Membership
           </a>
-
-          <p style="margin-top:20px;color:#6B7280;">
-            Use your 40% off code at checkout:
-          </p>
-
-          <div style="font-size:20px;font-weight:bold;color:#111;margin-top:10px;">
-            FBO40
-          </div>
-
-          <p style="margin-top:30px;color:#9CA3AF;font-size:12px;">
-            Private options and next steps are available inside.
-          </p>
+          <p style="margin:20px 0 8px; color:#6B7280;">Use your 40% off code:</p>
+          <div style="font-size:20px; font-weight:700; color:#111111;">FBO40</div>
         </div>
       `,
-      }),
     });
 
-    const userEmailJson = (await userEmailResponse.json().catch(() => null)) as
-      | { id?: string; error?: { message?: string } }
-      | null;
+    console.log("USER SEND RESULT:", JSON.stringify(userSend, null, 2));
 
-    if (!userEmailResponse.ok) {
-      const resendMessage = userEmailJson?.error?.message ?? "Unknown Resend API error";
-      console.error("Failed to send onboarding email", {
-        status: userEmailResponse.status,
-        resendMessage,
-        response: userEmailJson,
-        to: trimmedEmail,
-      });
-
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: `Resend onboarding failed: ${resendMessage}`,
-        }),
-        { status: 502 },
+    if (userSend.error) {
+      console.error("USER SEND ERROR:", JSON.stringify(userSend.error, null, 2));
+      return Response.json(
+        { error: userSend.error.message || "Resend failed sending to user" },
+        { status: 500 }
       );
     }
 
-    console.info("Onboarding email sent", {
-      to: trimmedEmail,
-      resendId: userEmailJson?.id,
-    });
-
-    console.info("Sending internal waitlist notification", {
+    const teamSend = await resend.emails.send({
+      from,
       to: teamEmail,
-      subscriberEmail: trimmedEmail,
-    });
-    const internalNotificationResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: teamEmail,
-        subject: "New FBO Membership Waitlist Lead",
-        html: `
-        <div style="font-family: sans-serif; background:#ffffff; padding:32px;">
-          <h2 style="color:#111827; margin:0 0 12px 0;">New waitlist submission</h2>
-          <p style="color:#374151; margin:0 0 8px 0;">
-            A new user requested membership access.
-          </p>
-          <p style="color:#111827; font-weight:700; margin:0;">
-            ${trimmedEmail}
-          </p>
-        </div>
-      `,
-      }),
+      subject: "New FBO membership signup",
+      html: `<p>New signup: ${email}</p>`,
     });
 
-    const internalNotificationJson = (await internalNotificationResponse.json().catch(() => null)) as
-      | { id?: string; error?: { message?: string } }
-      | null;
+    console.log("TEAM SEND RESULT:", JSON.stringify(teamSend, null, 2));
 
-    if (!internalNotificationResponse.ok) {
-      const resendMessage = internalNotificationJson?.error?.message ?? "Unknown Resend API error";
-      console.error("Failed to send internal notification email", {
-        status: internalNotificationResponse.status,
-        resendMessage,
-        response: internalNotificationJson,
-        to: teamEmail,
-        subscriberEmail: trimmedEmail,
-      });
-
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: `Onboarding sent but internal notification failed: ${resendMessage}`,
-        }),
-        { status: 502 },
-      );
+    if (teamSend.error) {
+      console.error("TEAM SEND ERROR:", JSON.stringify(teamSend.error, null, 2));
     }
 
-    console.info("Internal notification email sent", {
-      to: teamEmail,
-      resendId: internalNotificationJson?.id,
-    });
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: "Waitlist emails sent successfully.",
-      }),
-      { status: 200 },
+    return Response.json({ success: true, id: userSend.data?.id ?? null }, { status: 200 });
+  } catch (error: any) {
+    console.error("WAITLIST ROUTE ERROR:", error);
+    return Response.json(
+      { error: error?.message || "Unexpected server error" },
+      { status: 500 }
     );
-  } catch (error) {
-    console.error("Unexpected waitlist route failure", error);
-    const message = error instanceof Error ? error.message : "Unexpected server error";
-    return new Response(JSON.stringify({ success: false, error: message }), { status: 500 });
   }
 }
