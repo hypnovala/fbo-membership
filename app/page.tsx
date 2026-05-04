@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const membershipHighlights = {
   tier1: [
-    "Full FBO Course access",
+    "Full FBO Course Access ($59 value) is included",
     "Guided somatic reset practices",
     "Nervous system education",
     "Brock Somatic Check-In App access",
