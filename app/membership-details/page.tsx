@@ -165,7 +165,7 @@ export default function MembershipDetailsPage() {
                 {isSubmitting ? "Submitting..." : "Join Membership"}
               </button>
               <Link
-                href="https://fbo-membership.vercel.app/"
+                href="https://course.brockjohn.com/"
                 className="rounded-full border border-[#D1D5DB] bg-transparent px-6 py-3 font-medium text-[#374151] transition hover:bg-[#F9FAFB]"
               >
                 Get Membership Details
