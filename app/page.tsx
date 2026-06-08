@@ -227,6 +227,13 @@ export default function HomePage() {
           {error && <p className="text-sm text-rose-300">{error}</p>}
           <p className="text-sm text-stone-400">Includes your 40% off first month coupon.</p>
         </section>
+
+        <footer className="border-t border-stone-800 pt-8 text-center text-sm text-stone-400">
+          Contact: Brock John..{" "}
+          <a className="text-amber-200 transition hover:text-amber-100" href="mailto:homwithbrockjohn@gmail.com">
+            homwithbrockjohn@gmail.com
+          </a>
+        </footer>
       </div>
     </main>
   );
