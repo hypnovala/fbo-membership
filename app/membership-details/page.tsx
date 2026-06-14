@@ -156,7 +156,7 @@ export default function MembershipDetailsPage() {
               required
               className="w-full rounded-2xl border border-[#D1D5DB] bg-white px-4 py-3 text-[#111827] placeholder:text-[#9CA3AF] focus:border-[#111827] focus:outline-none focus:ring-2 focus:ring-[#111827]/10"
             />
-            <div className="flex flex-wrap gap-3">
+            <div className="flex justify-center">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -164,12 +164,6 @@ export default function MembershipDetailsPage() {
               >
                 {isSubmitting ? "Submitting..." : "Join Membership"}
               </button>
-              <Link
-                href="https://course.brockjohn.com/"
-                className="rounded-full border border-[#D1D5DB] bg-transparent px-6 py-3 font-medium text-[#374151] transition hover:bg-[#F9FAFB]"
-              >
-                Get Membership Details
-              </Link>
             </div>
           </form>
           {isSuccess && <p className="text-sm text-[#047857]">Check your email for access + discount</p>}
