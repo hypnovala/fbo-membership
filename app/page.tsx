@@ -4,25 +4,28 @@ import { FormEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const membershipHighlights = {
-  tier1: [
-    "Full FBO Course Access ($59 value) is included",
-    "Guided somatic reset practices",
-    "Nervous system education",
-    "Brock Somatic Check-In App access",
-    "Monthly reset audio/video sessions",
-    "1 monthly phone or FaceTime call with Brock",
-  ],
-  tier2: [
-    "Weekly 1:1 calls with Brock",
-    "Everything in Tier 1 (including the FBO Course)",
-    "Personalized nervous system support",
-    "Ongoing guidance for regulation and awareness practices",
-  ],
-};
+type TierChoice = "foundations" | "immersion";
+
+const tierOneIncludes = [
+  "Full FBO Course access ($59 value) included",
+  "Return to Her — your private practice app",
+  "Guided somatic reset practices",
+  "Nervous system education",
+  "Brock Somatic Check-In App access",
+  "Monthly reset audio & video sessions",
+  "One monthly call with Brock",
+];
+
+const tierTwoIncludes = [
+  "Weekly 1:1 calls with Brock",
+  "Everything in Somatic Foundations",
+  "Personalized nervous system support",
+  "Ongoing guidance for regulation & awareness",
+];
 
 export default function HomePage() {
   const [email, setEmail] = useState("");
+  const [tier, setTier] = useState<TierChoice>("foundations");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -43,198 +46,363 @@ export default function HomePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, tier }),
       });
 
       if (!response.ok) {
         const data = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(data?.error ?? "Email failed");
+        throw new Error(data?.error ?? "Something went wrong. Please try again.");
       }
 
       setIsSuccess(true);
       setEmail("");
-    } catch (error) {
-      setError(error instanceof Error ? error.message : "Unable to submit right now. Please try again.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to submit right now. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-stone-950 text-stone-100">
-      <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 space-y-16">
-        <section className="rounded-3xl border border-amber-300/30 bg-amber-950/20 p-6 md:p-8 space-y-6">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80">FBO Course</p>
-            <h2 className="text-3xl font-semibold">Start with the 35-Minute FBO Course</h2>
-            <p className="text-stone-300">
-              Get a quick preview of the course experience before diving deeper into membership options.
-            </p>
-          </div>
+    <main className="min-h-screen bg-warm font-jost">
+      {/* Nav */}
+      <nav className="sticky top-0 z-50 bg-warm border-b border-[rgba(201,169,110,0.2)] px-6 h-16 flex items-center justify-between">
+        <span className="font-playfair text-[16px] text-amber">
+          Brock<em className="italic text-gold">John</em>
+        </span>
+        <a
+          href="#signup"
+          className="bg-brown text-cream px-5 py-2.5 rounded-lg text-[11px] tracking-[0.18em] uppercase font-medium hover:opacity-85 transition-opacity"
+        >
+          Sign Up Now
+        </a>
+      </nav>
 
-          <div className="relative overflow-hidden rounded-2xl border border-amber-200/30 bg-stone-900/70 aspect-video">
+      {/* Course preview hero */}
+      <section className="bg-soft px-6 py-14 border-b border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3">FBO Course</p>
+          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-3">
+            Start With The <em className="italic text-amber">35-Minute FBO Course</em>
+          </h2>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] mb-6">
+            A short guided preview of the course experience — free, before you go deeper into membership.
+          </p>
+
+          <div className="relative overflow-hidden rounded-2xl border border-[rgba(201,169,110,0.35)] bg-brown aspect-video mb-5">
             <Image
               src="/images/fbo-course-preview.jpg"
               alt="FBO course preview"
               fill
-              className="object-cover"
+              className="object-cover opacity-90"
               sizes="(min-width: 1024px) 896px, 100vw"
               priority
             />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(60% 60% at 50% 40%, rgba(201,169,110,0.18), transparent 70%)" }}
+            />
+            <span className="absolute top-3.5 left-3.5 text-[10px] tracking-[0.2em] uppercase text-brown bg-[#E4D2A8] px-3 py-1.5 rounded-full font-medium">
+              Course Preview
+            </span>
           </div>
 
           <a
             href="https://fbo-35min-course.vercel.app/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex rounded-full bg-amber-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-amber-100"
+            className="text-[11px] tracking-[0.1em] uppercase text-amber underline"
           >
-            Course Preview
+            Preview the course →
           </a>
-        </section>
+        </div>
+      </section>
 
-        <section className="space-y-6 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-rose-200/80">Private Membership</p>
-          <h1 className="text-4xl font-semibold leading-tight md:text-6xl">
-            Membership Details + 40% Off Your First Month
+      {/* Membership hero */}
+      <section className="bg-warm px-6 pt-14 pb-10 text-center relative overflow-hidden">
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[340px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at center, rgba(201,169,110,0.1) 0%, transparent 70%)" }}
+        />
+        <div className="relative z-10 max-w-xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3">Private Membership</p>
+          <h1 className="font-playfair text-[clamp(32px,6vw,52px)] font-bold text-brown leading-[1.08] mb-5">
+            Membership Details <em className="italic text-amber">+ 40% Off Your First Month</em>
           </h1>
-          <p className="mx-auto max-w-3xl text-lg text-stone-300">
+          <p className="font-cormorant text-[18px] italic text-amber leading-[1.6] max-w-md mx-auto opacity-90 mb-8">
             A guided somatic experience designed to help you slow down, reconnect to your body, and feel more
             grounded, present, and alive.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/membership-details"
-              className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
+            <a
+              href="#signup"
+              className="bg-brown text-cream px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase hover:opacity-85 transition-opacity"
             >
-              Get Membership Details
-            </Link>
+              Sign Up Now
+            </a>
             <Link
               href="/bodywork-options"
-              className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
+              className="border border-gold px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase text-amber hover:border-amber transition-colors"
             >
               View Bodywork Options
             </Link>
           </div>
-          <p className="text-sm text-stone-400">
+          <p className="text-[12px] text-[rgba(107,76,42,0.55)] mt-5">
             Submit your email to receive membership information + your 40% off coupon.
           </p>
-        </section>
+        </div>
+      </section>
 
-        <section className="rounded-3xl border border-stone-800 bg-stone-900/80 p-8 md:p-10 space-y-5">
-          <h2 className="text-3xl font-semibold">You’re carrying more than you realize.</h2>
-          <p className="text-stone-300">Long days. Constant output. Always needed. Always “on.”</p>
-          <p className="text-stone-300">
-            Your body holds tension long after your work ends. And even when you rest… your nervous system doesn’t.
+      {/* Problem */}
+      <section className="bg-soft px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-4">
+            You&apos;re carrying more than you realize.
+          </h2>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] mb-2">
+            Long days. Constant output. Always needed. Always &ldquo;on.&rdquo;
           </p>
-          <p className="text-stone-200">This isn’t burnout. It’s disconnection from your body.</p>
-        </section>
-
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold">This is where you come back to yourself.</h2>
-          <p className="text-stone-300">
-            The membership is a private, guided space where you learn how to slow your nervous system, feel your body
-            again, expand your capacity for pleasure, calm, and presence, and reconnect to your feminine energy
-            without pressure or performance.
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] mb-2">
+            Your body holds tension long after your work ends. And even when you rest&hellip; your nervous system
+            doesn&apos;t.
           </p>
-        </section>
+          <p className="font-cormorant text-[19px] italic text-amber leading-[1.6] mt-4">
+            This isn&apos;t burnout. It&apos;s disconnection from your body.
+          </p>
+        </div>
+      </section>
 
-        <section className="space-y-8">
-          <h2 className="text-3xl font-semibold">Choose your level of support</h2>
-          <p className="rounded-2xl border border-rose-200/30 bg-rose-950/30 p-4 text-sm md:text-base text-rose-100">
-            All membership tiers include full FBO Course access and unlock access to private Houston bodywork sessions.
-            Bodywork is booked separately and not included in monthly pricing.
+      {/* Solution */}
+      <section className="bg-warm px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-4">
+            This is where you come back <em className="italic text-amber">to yourself.</em>
+          </h2>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] max-w-md mx-auto">
+            The membership is a private, guided space where you learn how to slow your nervous system, feel your
+            body again, expand your capacity for pleasure, calm, and presence, and reconnect to your feminine
+            energy — without pressure or performance.
+          </p>
+        </div>
+      </section>
+
+      {/* Tiers */}
+      <section className="bg-soft px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3 text-center">
+            Choose Your Level Of Support
+          </p>
+          <h2 className="font-playfair text-[clamp(24px,4vw,34px)] font-bold text-brown leading-[1.15] mb-3 text-center">
+            Two Ways To Begin
+          </h2>
+          <p className="text-[13px] text-center text-[rgba(107,76,42,0.7)] mb-8 max-w-md mx-auto">
+            Every tier includes full FBO Course access and unlocks private Houston bodywork sessions, booked
+            separately.
           </p>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <article className="rounded-3xl border border-stone-800 bg-stone-900 p-6 space-y-4">
-              <h3 className="text-2xl font-semibold">Tier 1 — Digital Membership</h3>
-              <p className="text-rose-200 text-lg font-medium">$39/month</p>
-              <p className="text-stone-300">
-                A foundational digital nervous system reset experience for women learning how to regulate, reconnect,
-                and build awareness in their body.
+          <div className="flex flex-col gap-5">
+            {/* Tier 1 */}
+            <div className="bg-white border-[1.5px] border-gold rounded-2xl p-6">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gold font-medium mb-1">Somatic Foundations</p>
+              <p className="font-playfair text-[24px] font-bold text-brown mb-1">
+                $39<span className="text-[13px] font-normal text-amber"> / month</span>
               </p>
-              <ul className="space-y-2 text-stone-200">
-                {membershipHighlights.tier1.map((item) => (
-                  <li key={item}>✨ {item}</li>
+              <p className="text-[13px] text-[rgba(107,76,42,0.75)] mb-4">
+                A foundational digital nervous system reset for women learning to regulate, reconnect, and build
+                awareness in their body.
+              </p>
+              <ul className="flex flex-col gap-2 mb-4">
+                {tierOneIncludes.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-[13.5px] leading-[1.6] text-[#43321d]">
+                    <span className="text-amber flex-shrink-0">✓</span>
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
+              <a
+                href="#signup"
+                className="block text-center py-3 rounded-lg border-[1.5px] border-brown text-brown text-[11.5px] font-medium tracking-[0.16em] uppercase hover:bg-brown hover:text-cream transition-colors mb-2"
+              >
+                Sign Up Now
+              </a>
               <a
                 href="https://fbo-35min-course.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex rounded-full border border-amber-200/70 px-5 py-2.5 text-sm font-medium text-amber-100 transition hover:border-amber-100"
+                className="block text-center text-[11px] tracking-[0.1em] uppercase text-[rgba(107,76,42,0.55)] underline"
               >
-                Preview Course
+                Preview the course first
               </a>
-            </article>
+            </div>
 
-            <article className="rounded-3xl border border-rose-200/30 bg-gradient-to-b from-rose-950/30 to-stone-900 p-6 space-y-4">
-              <h3 className="text-2xl font-semibold">Tier 2 — Coaching Membership</h3>
-              <p className="text-rose-200 text-lg font-medium">$149/month or $89/month</p>
-              <p className="text-stone-300">A higher-touch coaching experience with consistent weekly support and guidance.</p>
-              <ul className="space-y-2 text-stone-200">
-                <li>✨ $149/month (no bodywork)</li>
-                <li>✨ $89/month (for members who plan to book bodywork sessions separately)</li>
-                {membershipHighlights.tier2.map((item) => (
-                  <li key={item}>✨ {item}</li>
-                ))}
-              </ul>
-            </article>
+            {/* Tier 2 */}
+            <div className="bg-brown rounded-2xl p-6 relative overflow-hidden">
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: "radial-gradient(70% 90% at 90% 0%, rgba(201,169,110,.22), transparent 60%)" }}
+              />
+              <div className="relative z-10">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[rgba(201,169,110,0.6)] font-medium mb-1">
+                  Full Body Immersion
+                </p>
+                <p className="font-playfair text-[24px] font-bold text-cream mb-1">
+                  $149<span className="text-[13px] font-normal text-[rgba(245,238,216,0.55)]"> / month</span>
+                </p>
+                <p className="text-[13px] text-[rgba(245,238,216,0.65)] mb-4">
+                  A higher-touch coaching experience with consistent weekly support and guidance.
+                </p>
+                <ul className="flex flex-col gap-2 mb-4">
+                  {tierTwoIncludes.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-[13.5px] leading-[1.6] text-[rgba(245,238,216,0.85)]"
+                    >
+                      <span className="text-gold flex-shrink-0">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[11.5px] text-[rgba(245,238,216,0.45)] mb-4">
+                  $89/month if you&apos;re also booking bodywork sessions separately.
+                </p>
+                <a
+                  href="#signup"
+                  className="block text-center py-3 rounded-lg bg-gold text-brown text-[11.5px] font-semibold tracking-[0.16em] uppercase hover:opacity-88 transition-opacity"
+                >
+                  Sign Up Now
+                </a>
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="space-y-6 rounded-3xl bg-stone-900 p-8 md:p-10">
-          <h2 className="text-3xl font-semibold">What changes over time</h2>
-          <ul className="grid gap-2 text-stone-300 md:grid-cols-2">
-            <li>• calmer in your body</li>
-            <li>• less reactive, more grounded</li>
-            <li>• more connected to sensation</li>
-            <li>• more present in your life and relationships</li>
-            <li>• more at ease in your femininity</li>
-          </ul>
-        </section>
+      {/* What changes over time */}
+      <section className="bg-warm px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3 text-center">Over Time</p>
+          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-8 text-center">
+            What Changes When You <em className="italic text-amber">Return To Your Body</em>
+          </h2>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              "Calmer in your body",
+              "Less reactive, more grounded",
+              "More connected to sensation",
+              "More present in your life and relationships",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-2 bg-white border border-[rgba(201,169,110,0.2)] rounded-xl p-4"
+              >
+                <span className="text-amber flex-shrink-0 text-[13px]">✓</span>
+                <span className="text-[13px] leading-[1.5] text-[#43321d]">{item}</span>
+              </div>
+            ))}
+            <div className="col-span-2 flex items-start gap-2 bg-white border border-[rgba(201,169,110,0.2)] rounded-xl p-4">
+              <span className="text-amber flex-shrink-0 text-[13px]">✓</span>
+              <span className="text-[13px] leading-[1.5] text-[#43321d]">More at ease in your femininity</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section className="text-center space-y-5">
-          <h2 className="text-3xl font-semibold">Explore the membership.</h2>
-          <p className="text-stone-300">Submit your email and get immediate access + your 40% off code.</p>
-          <form className="mx-auto max-w-xl space-y-4" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="Email address"
-              required
-              className="w-full rounded-full border border-stone-600 bg-stone-900 px-5 py-3 text-stone-100 placeholder:text-stone-400 focus:border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-200/20"
-            />
-            <div className="flex flex-wrap justify-center gap-3">
+      {/* Email capture */}
+      <section id="signup" className="bg-brown px-6 py-20 text-center relative overflow-hidden">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full pointer-events-none"
+          style={{ border: "1px solid rgba(201,169,110,0.07)" }}
+        />
+        <div className="relative z-10 max-w-sm mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[rgba(201,169,110,0.5)] mb-4">Explore The Membership</p>
+          <h2 className="font-playfair text-[clamp(26px,4.5vw,36px)] font-bold text-cream leading-[1.1] mb-3">
+            Get Your Welcome Package
+          </h2>
+          <p className="font-cormorant text-[17px] italic text-[rgba(245,238,216,0.6)] mb-7 leading-[1.6]">
+            Submit your email and get your 40% off code, next steps, and payment link — no card needed yet.
+          </p>
+
+          <div className="bg-[rgba(245,238,216,0.06)] border border-[rgba(201,169,110,0.25)] rounded-2xl p-6 text-left">
+            <p className="text-[10px] tracking-[0.15em] uppercase text-[rgba(201,169,110,0.6)] font-medium mb-2">
+              Which path fits you?
+            </p>
+            <div className="flex gap-2 mb-5">
+              <button
+                type="button"
+                onClick={() => setTier("foundations")}
+                className={
+                  "flex-1 text-center py-2.5 rounded-lg border-[1.5px] text-[12px] font-medium transition-colors " +
+                  (tier === "foundations"
+                    ? "border-gold bg-gold text-brown"
+                    : "border-[rgba(245,238,216,0.25)] text-[rgba(245,238,216,0.6)]")
+                }
+              >
+                Somatic Foundations
+              </button>
+              <button
+                type="button"
+                onClick={() => setTier("immersion")}
+                className={
+                  "flex-1 text-center py-2.5 rounded-lg border-[1.5px] text-[12px] font-medium transition-colors " +
+                  (tier === "immersion"
+                    ? "border-gold bg-gold text-brown"
+                    : "border-[rgba(245,238,216,0.25)] text-[rgba(245,238,216,0.6)]")
+                }
+              >
+                Full Body Immersion
+              </button>
+            </div>
+
+            <form className="space-y-3" onSubmit={handleSubmit}>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@email.com"
+                required
+                className="w-full rounded-lg border border-[rgba(245,238,216,0.25)] bg-[rgba(245,238,216,0.08)] px-4 py-3 text-[13px] text-cream placeholder:text-[rgba(245,238,216,0.4)] focus:border-gold focus:outline-none"
+              />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="rounded-full bg-rose-200 px-6 py-3 font-medium text-stone-900 transition hover:bg-rose-100"
+                className="w-full py-3.5 bg-gold text-brown rounded-lg font-jost text-[11.5px] font-semibold tracking-[0.15em] uppercase hover:opacity-88 transition-opacity disabled:opacity-60"
               >
-                {isSubmitting ? "Submitting..." : "Join Membership"}
+                {isSubmitting ? "Sending…" : "Sign Up Now"}
               </button>
-              <Link
-                href="/membership-details"
-                className="rounded-full border border-stone-600 px-6 py-3 font-medium text-stone-100 transition hover:border-stone-400"
-              >
-                Get Membership Details
-              </Link>
-            </div>
-          </form>
-          {isSuccess && <p className="text-sm text-emerald-300">Check your email for access + discount</p>}
-          {error && <p className="text-sm text-rose-300">{error}</p>}
-          <p className="text-sm text-stone-400">Includes your 40% off first month coupon.</p>
-        </section>
+            </form>
 
-        <footer className="border-t border-stone-800 pt-8 text-center text-sm text-stone-400">
-          Contact: Brock John..{" "}
-          <a className="text-amber-200 transition hover:text-amber-100" href="mailto:homwithbrockjohn@gmail.com">
-            homwithbrockjohn@gmail.com
+            {isSuccess && (
+              <p className="mt-3 text-[13px] text-[rgba(201,169,110,0.9)]">Check your email for your welcome package.</p>
+            )}
+            {error && <p className="mt-3 text-[13px] text-rose-300">{error}</p>}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 mt-6">
+            <Link
+              href="/membership-details"
+              className="text-[11px] tracking-[0.1em] uppercase text-[rgba(201,169,110,0.6)] underline"
+            >
+              Full membership details →
+            </Link>
+          </div>
+          <p className="mt-4 text-[11px] text-[rgba(245,238,216,0.35)]">Includes your 40% off first month coupon.</p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-brown border-t border-[rgba(201,169,110,0.12)] px-6 py-6">
+        <div className="max-w-5xl mx-auto flex flex-col gap-2 text-center">
+          <span className="font-playfair text-[14px] italic text-[rgba(201,169,110,0.4)]">
+            Brock John · Somatic Sex Education
+          </span>
+          <a
+            href="mailto:homewithbrockjohn@gmail.com"
+            className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
+          >
+            homewithbrockjohn@gmail.com
           </a>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </main>
   );
 }
