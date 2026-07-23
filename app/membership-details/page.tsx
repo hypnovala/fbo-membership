@@ -132,6 +132,12 @@ export default function MembershipDetailsPage() {
           <p className="font-cormorant text-[18px] italic text-amber leading-[1.6] max-w-md mx-auto opacity-90">
             A private membership designed to help you regulate, reconnect, and expand your capacity to feel.
           </p>
+          <a
+            href="https://course.brockjohn.com/"
+            className="inline-block mt-8 w-full max-w-xs py-3 border border-[rgba(107,76,42,0.22)] text-brown rounded-xl font-jost text-[12px] font-medium tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors text-center"
+          >
+            Return to Course
+          </a>
         </div>
       </section>
 
@@ -399,6 +405,12 @@ export default function MembershipDetailsPage() {
           <p className="font-cormorant text-[17px] italic text-[rgba(245,238,216,0.6)] leading-[1.6]">
             There&apos;s nothing to rush. This is about learning how to slow down &amp; feel again.
           </p>
+          <a
+            href="https://course.brockjohn.com/"
+            className="inline-block mt-8 w-full py-[15px] border border-[rgba(201,169,110,0.35)] text-cream rounded-xl font-jost text-[12px] font-semibold tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors"
+          >
+            Return to Course
+          </a>
         </div>
       </section>
 
