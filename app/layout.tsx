@@ -1,5 +1,26 @@
 import type { Metadata } from "next";
+import { Playfair_Display, Cormorant, Jost } from "next/font/google";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+});
+
+const cormorant = Cormorant({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  variable: "--font-cormorant",
+});
+
+const jost = Jost({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jost",
+});
 
 export const metadata: Metadata = {
   title: "FBO Membership",
@@ -12,18 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen">
-        <div className="min-h-screen flex flex-col">
-          <div className="flex-1">{children}</div>
-          <footer className="border-t border-white/10 bg-[#080c2f] px-6 py-4 text-xs tracking-[0.12em] uppercase">
-            <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
-              <p className="text-stone-200">BROCK JOHN · SOMATIC SEX EDUCATION</p>
-              <p className="text-[#d4af37]">FBO COURSE 2026</p>
-            </div>
-          </footer>
-        </div>
-      </body>
+    <html lang="en" className={`${playfair.variable} ${cormorant.variable} ${jost.variable}`}>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }
