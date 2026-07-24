@@ -202,22 +202,26 @@ export default function MembershipDetailsPage() {
         </div>
       </section>
 
-      {/* How Return to Her works */}
-      <section className="bg-soft px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
-        <div className="max-w-xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3">How Your Membership Works</p>
-          <h2 className="font-playfair text-[clamp(22px,4vw,30px)] font-bold text-brown leading-[1.15] mb-8">
-            Delivered through <em className="italic text-amber">Return to Her</em>
+      {/* How Return to Her works — matches the bold white treatment used on the home page */}
+      <section className="bg-white px-6 py-20 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-brown font-bold mb-4">How Your Membership Works</p>
+          <h2 className="font-jost text-[clamp(32px,6vw,50px)] font-black text-brown leading-[1.05] mb-5">
+            Delivered Through Return to Her.
           </h2>
-          <div className="flex flex-col gap-6">
+          <p className="text-[17px] leading-[1.6] text-[#3a2a16] mb-12 max-w-xl">
+            One private companion app, four simple steps, built to meet you exactly where you are each time you
+            return.
+          </p>
+          <div className="flex flex-col gap-10">
             {howItWorks.map((s) => (
-              <div key={s.step} className="flex gap-5">
-                <span className="font-playfair text-[24px] font-bold text-[rgba(201,169,110,0.5)] flex-shrink-0 leading-none mt-1">
+              <div key={s.step} className="flex gap-5 items-start">
+                <span className="font-jost text-[38px] font-black text-gold leading-none flex-shrink-0 w-14">
                   {s.step}
                 </span>
                 <div>
-                  <p className="font-playfair text-[16px] font-bold text-brown mb-1 leading-snug">{s.title}</p>
-                  <p className="text-[13px] leading-[1.75] text-[rgba(107,76,42,0.75)]">{s.body}</p>
+                  <h3 className="text-[22px] sm:text-[25px] font-black text-brown leading-tight mb-2">{s.title}</h3>
+                  <p className="text-[16px] sm:text-[17px] leading-[1.6] text-[#3a2a16]">{s.body}</p>
                 </div>
               </div>
             ))}
