@@ -109,12 +109,6 @@ export default function HomePage() {
             >
               Get Membership Details
             </Link>
-            <Link
-              href="/bodywork-options"
-              className="rounded-full border border-amber-200/70 px-6 py-3 font-medium text-amber-100 transition hover:border-amber-100"
-            >
-              View Bodywork Options
-            </Link>
           </div>
           <p className="text-sm text-stone-400">
             Submit your email to receive membership information + your 40% off coupon.
@@ -230,8 +224,8 @@ export default function HomePage() {
 
         <footer className="border-t border-stone-800 pt-8 text-center text-sm text-stone-400">
           Contact: Brock John..{" "}
-          <a className="text-amber-200 transition hover:text-amber-100" href="mailto:homwithbrockjohn@gmail.com">
-            homwithbrockjohn@gmail.com
+          <a className="text-amber-200 transition hover:text-amber-100" href="mailto:contact@brockjohn.com">
+            contact@brockjohn.com
           </a>
         </footer>
       </div>
