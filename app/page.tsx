@@ -346,6 +346,44 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* You've adapted so well */}
+      <section className="bg-soft px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-4">
+            You&apos;ve adapted so well, you stopped noticing.
+          </h2>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] mb-2">
+            Being &ldquo;fine&rdquo; becomes its own skill. You learn to function through exhaustion, to keep
+            giving when there&apos;s nothing left, to sound okay long after you stopped feeling it.
+          </p>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] mb-2">
+            But competence isn&apos;t the same as being well. Somewhere underneath it, your body is still
+            waiting to be asked how it&apos;s actually doing.
+          </p>
+          <p className="font-cormorant text-[19px] italic text-amber leading-[1.6] mt-4">
+            You don&apos;t have to keep proving you can handle it.
+          </p>
+        </div>
+      </section>
+
+      {/* Quote + permission to rest */}
+      <section className="bg-warm px-6 py-16 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="font-cormorant text-[22px] sm:text-[25px] italic text-amber leading-[1.65] mb-5">
+            &ldquo;Our body and mind have the capacity to heal themselves if we allow them to rest. Stopping,
+            calming, and resting are preconditions for healing.&rdquo;
+          </p>
+          <p className="text-[11px] tracking-[0.22em] uppercase text-[rgba(107,76,42,0.5)] mb-9">
+            — Thich Nhat Hanh
+          </p>
+          <p className="text-[14px] leading-[1.8] text-[rgba(107,76,42,0.75)] max-w-md mx-auto">
+            This membership exists to give you exactly that: permission to stop, a structure that makes rest
+            possible, and a guide who understands that real healing happens in stillness — not in one more
+            thing to accomplish.
+          </p>
+        </div>
+      </section>
+
       {/* Email capture */}
       <section id="signup" className="bg-brown px-6 py-20 text-center relative overflow-hidden">
         <div
