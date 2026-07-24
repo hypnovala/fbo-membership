@@ -277,33 +277,72 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What changes over time */}
-      <section className="bg-warm px-6 py-14 border-t border-[rgba(201,169,110,0.15)]">
-        <div className="max-w-xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-gold font-medium mb-3 text-center">Over Time</p>
-          <h2 className="font-playfair text-[clamp(24px,4vw,32px)] font-bold text-brown leading-[1.15] mb-8 text-center">
-            What Changes When You <em className="italic text-amber">Return To Your Body</em>
+      {/* Membership benefits — deliberate break from the site's quiet theme:
+          bold sans-serif, large type, plain white background, direct sales voice.
+          Everything above and below this section stays in the established brand. */}
+      <section className="bg-white px-6 py-20 border-t border-[rgba(201,169,110,0.15)]">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[12px] tracking-[0.3em] uppercase text-brown font-bold mb-4">Why Members Stay</p>
+          <h2 className="font-jost text-[clamp(34px,7vw,58px)] font-black text-brown leading-[1.05] mb-5">
+            Everything Your Membership Actually Gives You.
           </h2>
-          <div className="grid grid-cols-2 gap-3">
+          <p className="text-[18px] leading-[1.6] text-[#3a2a16] mb-14 max-w-xl">
+            Not just a course. A complete system built to keep working for you, month after month.
+          </p>
+
+          <div className="flex flex-col gap-11">
             {[
-              "Calmer in your body",
-              "Less reactive, more grounded",
-              "More connected to sensation",
-              "More present in your life and relationships",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-2 bg-white border border-[rgba(201,169,110,0.2)] rounded-xl p-4"
-              >
-                <span className="text-amber flex-shrink-0 text-[13px]">✓</span>
-                <span className="text-[13px] leading-[1.5] text-[#43321d]">{item}</span>
+              {
+                title: "Come home to your body, on your own schedule.",
+                body: "No commute, no waiting room. Your entire practice lives in your pocket, ready the moment you have five quiet minutes.",
+              },
+              {
+                title: "Feel supported, not just informed.",
+                body: "This isn't a course you finish alone. Brock is in your corner every month, guiding you as your body actually responds.",
+              },
+              {
+                title: "Never wonder what to do next.",
+                body: "Return to Her tells you exactly which practice fits tonight, so you spend your time feeling instead of figuring it out.",
+              },
+              {
+                title: "Watch your own progress, in your own words.",
+                body: "Every practice you complete becomes part of your private timeline — real proof, over weeks, that something is shifting.",
+              },
+              {
+                title: "Go as deep as you're ready for, tonight.",
+                body: "Every practice offers a gentler option and a deeper one. You choose, every single time, with zero pressure either way.",
+              },
+              {
+                title: "Get real answers, not generic advice.",
+                body: "Your Somatic Check-In App keeps a running pulse on your nervous system, so you always know where you actually stand.",
+              },
+              {
+                title: "Build something that compounds.",
+                body: "Each month unlocks another module — a full seven-part journey that keeps deepening instead of ending after one session.",
+              },
+              {
+                title: "Save $59 the moment you join.",
+                body: "Your first month includes the entire FBO Course at no extra cost — a full introduction to the method, included, not upsold.",
+              },
+            ].map((b, i) => (
+              <div key={b.title} className="flex gap-5 items-start">
+                <span className="font-jost text-[38px] font-black text-gold leading-none flex-shrink-0 w-14">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-[23px] sm:text-[26px] font-black text-brown leading-tight mb-2">{b.title}</h3>
+                  <p className="text-[16px] sm:text-[17px] leading-[1.6] text-[#3a2a16]">{b.body}</p>
+                </div>
               </div>
             ))}
-            <div className="col-span-2 flex items-start gap-2 bg-white border border-[rgba(201,169,110,0.2)] rounded-xl p-4">
-              <span className="text-amber flex-shrink-0 text-[13px]">✓</span>
-              <span className="text-[13px] leading-[1.5] text-[#43321d]">More at ease in your femininity</span>
-            </div>
           </div>
+
+          <a
+            href="#signup"
+            className="mt-14 inline-flex bg-brown text-cream px-8 py-4 rounded-lg text-[13px] font-bold tracking-[0.18em] uppercase hover:opacity-88 transition-opacity"
+          >
+            Sign Up Now
+          </a>
         </div>
       </section>
 
