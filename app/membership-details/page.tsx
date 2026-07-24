@@ -207,7 +207,7 @@ export default function MembershipDetailsPage() {
         <div className="max-w-2xl mx-auto">
           <p className="text-[12px] tracking-[0.3em] uppercase text-brown font-bold mb-4">How Your Membership Works</p>
           <h2 className="font-jost text-[clamp(32px,6vw,50px)] font-black text-brown leading-[1.05] mb-5">
-            Delivered Through Return to Her.
+            Delivered Through &apos;Return to Her&apos; app by Brok John
           </h2>
           <p className="text-[17px] leading-[1.6] text-[#3a2a16] mb-12 max-w-xl">
             One private companion app, four simple steps, built to meet you exactly where you are each time you
@@ -216,8 +216,8 @@ export default function MembershipDetailsPage() {
           <div className="flex flex-col gap-10">
             {howItWorks.map((s) => (
               <div key={s.step} className="flex gap-5 items-start">
-                <span className="font-jost text-[38px] font-black text-gold leading-none flex-shrink-0 w-14">
-                  {s.step}
+                <span className="font-jost text-[38px] font-black text-gold leading-none flex-shrink-0">
+                  {`Step ${s.step}`}
                 </span>
                 <div>
                   <h3 className="text-[22px] sm:text-[25px] font-black text-brown leading-tight mb-2">{s.title}</h3>
