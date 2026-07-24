@@ -207,7 +207,7 @@ export default function MembershipDetailsPage() {
         <div className="max-w-2xl mx-auto">
           <p className="text-[12px] tracking-[0.3em] uppercase text-brown font-bold mb-4">How Your Membership Works</p>
           <h2 className="font-jost text-[clamp(32px,6vw,50px)] font-black text-brown leading-[1.05] mb-5">
-            Delivered Through &apos;Return to Her&apos; app by Brok John
+            Delivered Through &apos;Return to Her&apos; app by Brock John
           </h2>
           <p className="text-[17px] leading-[1.6] text-[#3a2a16] mb-12 max-w-xl">
             One private companion app, four simple steps, built to meet you exactly where you are each time you
