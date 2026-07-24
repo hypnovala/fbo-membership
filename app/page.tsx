@@ -109,8 +109,6 @@ export default function HomePage() {
 
           <a
             href="https://fbo-35min-course.vercel.app/"
-            target="_blank"
-            rel="noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase text-amber underline"
           >
             Preview the course →
@@ -221,8 +219,6 @@ export default function HomePage() {
               </a>
               <a
                 href="https://fbo-35min-course.vercel.app/"
-                target="_blank"
-                rel="noreferrer"
                 className="block text-center text-[11px] tracking-[0.1em] uppercase text-[rgba(107,76,42,0.55)] underline"
               >
                 Preview the course first
