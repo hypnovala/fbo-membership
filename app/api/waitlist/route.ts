@@ -1,10 +1,25 @@
 import { Resend } from "resend";
 
+type TierChoice = "foundations" | "immersion";
+
+const TIER_LABELS: Record<TierChoice, string> = {
+  foundations: "Somatic Foundations",
+  immersion: "Full Body Immersion",
+};
+
+// TODO: replace once the real Stripe checkout link is ready.
+const PAYMENT_LINK = "PASTE_PAYMENT_LINK_HERE";
+const COUPON_CODE = "40OFFBROCK";
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function getConfirmationEmailHtml(subject: string) {
+function normalizeTier(value: unknown): TierChoice {
+  return value === "immersion" ? "immersion" : "foundations";
+}
+
+function getConfirmationEmailHtml(subject: string, tierLabel: string) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -13,110 +28,251 @@ function getConfirmationEmailHtml(subject: string) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${subject}</title>
   </head>
-  <body style="margin:0; padding:0; background-color:#f4ede9;">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f4ede9; margin:0; padding:0;">
+  <body style="margin:0; padding:0; background-color:#F5EED8;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#F5EED8; margin:0; padding:0;">
       <tr>
         <td align="center" style="padding:32px 16px;">
           <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px; background-color:#ffffff; border-radius:18px; overflow:hidden;">
+
+            <!-- Header -->
             <tr>
-              <td style="background:linear-gradient(135deg, #f1ded6 0%, #f6e7e1 100%); padding:40px 32px; text-align:center;">
-                <div style="font-family:Georgia, 'Times New Roman', serif; font-size:32px; line-height:1.2; color:#2a2a2a; font-weight:700; margin:0 0 10px;">
-                  Welcome to FBO
+              <td style="background:linear-gradient(135deg, #EFE6CC 0%, #F5EED8 100%); padding:40px 32px; text-align:center; border-bottom:1px solid rgba(201,169,110,0.3);">
+                <div style="font-family:Georgia, 'Times New Roman', serif; font-size:32px; line-height:1.2; color:#2E1F0E; font-weight:700; margin:0 0 10px;">
+                  Welcome to <em style="font-style:italic; color:#6B4C2A;">FBO</em>
                 </div>
-                <div style="font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; color:#7a645c; margin:0;">
+                <div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.6; color:#6B4C2A; margin:0;">
                   A slower, deeper relationship with your body.
                 </div>
               </td>
             </tr>
 
             <tr>
-              <td style="padding:36px 32px 8px 32px; font-family:Arial, Helvetica, sans-serif; color:#2a2a2a;">
+              <td style="padding:36px 32px 8px 32px; font-family:Arial, Helvetica, sans-serif; color:#2E1F0E;">
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">Hi,</p>
 
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
-                  You’re officially inside.
+                  You&rsquo;re officially inside.
+                </p>
+
+                <!-- Tier confirmation -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px;">
+                  <tr>
+                    <td style="background-color:#F5EED8; border:1px solid rgba(201,169,110,0.4); border-radius:10px; padding:14px 18px;">
+                      <p style="margin:0; font-size:13px; line-height:1.6; color:#6B4C2A; font-family:Arial, Helvetica, sans-serif;">
+                        You selected: <strong style="color:#2E1F0E;">${tierLabel}</strong>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
+                  Before anything else, take one slow breath in&hellip; and a longer breath out.
                 </p>
 
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
-                  Before anything else, take one slow breath in… and a longer breath out.
+                  That small shift matters. It&rsquo;s often the first signal your body receives that it can begin to soften.
                 </p>
 
-                <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
-                  That small shift matters. It’s often the first signal your body receives that it can begin to soften.
-                </p>
-
-                <div style="background-color:#fbf5f1; border-left:4px solid #d4b1a2; padding:18px 18px; border-radius:10px; margin:24px 0;">
-                  <p style="margin:0; font-size:18px; line-height:1.7; color:#7a645c; font-weight:700;">
-                    Your body isn’t numb.
+                <div style="background-color:#F5EED8; border-left:4px solid #C9A96E; padding:18px; border-radius:10px; margin:24px 0;">
+                  <p style="margin:0; font-size:18px; line-height:1.7; color:#6B4C2A; font-weight:700;">
+                    Your body isn&rsquo;t numb.
                   </p>
-                  <p style="margin:8px 0 0; font-size:16px; line-height:1.7; color:#2a2a2a;">
-                    It’s been moving fast, holding tension, and protecting you for too long.
+                  <p style="margin:8px 0 0; font-size:16px; line-height:1.7; color:#2E1F0E;">
+                    It&rsquo;s been moving fast, holding tension, and protecting you for too long.
                   </p>
                 </div>
 
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
-                  If you’ve been rushing through sensation, disconnected from your body, or feeling like something is missing…
+                  If you&rsquo;ve been rushing through sensation, disconnected from your body, or feeling like something is missing&hellip;
                 </p>
 
-                <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
+                <p style="margin:0 0 24px; font-size:16px; line-height:1.7;">
                   this is where that begins to shift.
                 </p>
 
-                <h2 style="margin:30px 0 12px; font-size:24px; line-height:1.3; color:#7a645c; font-family:Georgia, 'Times New Roman', serif;">
-                  What this experience helps you do
+                <!-- Getting started steps — bold, white background, large print -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 30px; background-color:#ffffff;">
+                  <tr>
+                    <td style="padding:8px 0 4px;">
+                      <p style="margin:0 0 4px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#2E1F0E; font-weight:700; font-family:Arial, Helvetica, sans-serif;">
+                        Your First Week
+                      </p>
+                      <h2 style="margin:0 0 20px; font-size:26px; line-height:1.2; color:#2E1F0E; font-weight:900; font-family:Arial, Helvetica, sans-serif;">
+                        Here&rsquo;s Exactly What Happens Next.
+                      </h2>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">01</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Pay for your monthly membership at MassageBook.com</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">02</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Book your first call with Brock via the calendar link</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">03</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Check your email for your Return to Her app link</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">04</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Start your week with Module 1: Arrival</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">05</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Review the module&rsquo;s attached links and materials</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">06</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Do the recommended exercises at your own convenience</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:14px 0 4px; border-top:1px solid rgba(201,169,110,0.25);">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">07</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Send Brock any progress, if you&rsquo;d like to share it</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- What's included -->
+                <h2 style="margin:0 0 14px; font-size:22px; line-height:1.3; color:#6B4C2A; font-family:Georgia, 'Times New Roman', serif;">
+                  What&rsquo;s waiting inside your membership
                 </h2>
 
-                <ul style="margin:0 0 24px 20px; padding:0; color:#2a2a2a; font-size:16px; line-height:1.8;">
-                  <li>feel more sensation without forcing it</li>
-                  <li>slow down and expand your awareness</li>
-                  <li>shift from performance into presence</li>
-                  <li>reconnect to your body in a deeper way</li>
-                </ul>
-
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px auto;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 26px;">
                   <tr>
-                    <td align="center" bgcolor="#2a2a2a" style="border-radius:999px;">
+                    <td style="background-color:#F5EED8; border:1px solid rgba(201,169,110,0.3); border-radius:12px; padding:20px;">
+                      <p style="margin:0 0 10px; font-size:15px; line-height:1.6; color:#2E1F0E;">
+                        <strong>The FBO Course</strong> &mdash; your recommended module, unfolding at your pace
+                      </p>
+                      <p style="margin:0 0 10px; font-size:15px; line-height:1.6; color:#2E1F0E;">
+                        <strong>Return to Her</strong> &mdash; your private practice companion, matched to what you shared
+                      </p>
+                      <p style="margin:0 0 10px; font-size:15px; line-height:1.6; color:#2E1F0E;">
+                        <strong>Somatic Check-In App</strong> &mdash; a running check-in with your own nervous system
+                      </p>
+                      <p style="margin:0; font-size:15px; line-height:1.6; color:#2E1F0E;">
+                        <strong>Monthly call with Brock</strong> &mdash; real guidance, not just information
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Coupon -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 26px;">
+                  <tr>
+                    <td style="background-color:#2E1F0E; border-radius:12px; padding:20px; text-align:center;">
+                      <p style="margin:0 0 6px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(201,169,110,0.7); font-family:Arial, Helvetica, sans-serif;">
+                        Your Coupon
+                      </p>
+                      <p style="margin:0; font-size:22px; font-weight:700; color:#F5EED8; font-family:Georgia, 'Times New Roman', serif; letter-spacing:0.04em;">
+                        ${COUPON_CODE}
+                      </p>
+                      <p style="margin:8px 0 0; font-size:13px; color:rgba(245,238,216,0.6); font-family:Arial, Helvetica, sans-serif;">
+                        40% off your first month
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Primary CTA -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 14px auto;">
+                  <tr>
+                    <td align="center" bgcolor="#2E1F0E" style="border-radius:999px;">
                       <a
-                        href="https://fbo-35min-course.vercel.app"
-                        style="display:inline-block; padding:15px 28px; font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#ffffff; text-decoration:none; font-weight:700;"
+                        href="${PAYMENT_LINK}"
+                        style="display:inline-block; padding:16px 32px; font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#F5EED8; text-decoration:none; font-weight:700;"
                       >
-                        Read the Guide
+                        Complete Your Enrollment
                       </a>
                     </td>
                   </tr>
                 </table>
 
-                <div style="background-color:#fbf5f1; border-radius:14px; padding:22px; margin:0 0 28px;">
-                  <h3 style="margin:0 0 12px; font-size:20px; line-height:1.3; color:#7a645c; font-family:Georgia, 'Times New Roman', serif;">
+                <p style="margin:0 0 28px; text-align:center;">
+                  <a href="https://fbo-35min-course.vercel.app" style="font-size:13px; color:#6B4C2A; font-family:Arial, Helvetica, sans-serif; text-decoration:underline;">
+                    Not ready yet? Read the free preview guide &rarr;
+                  </a>
+                </p>
+
+                <div style="background-color:#F5EED8; border-radius:14px; padding:22px; margin:0 0 28px;">
+                  <h3 style="margin:0 0 12px; font-size:19px; line-height:1.3; color:#6B4C2A; font-family:Georgia, 'Times New Roman', serif;">
                     Try this now
                   </h3>
-                  <p style="margin:0 0 10px; font-size:16px; line-height:1.7;">
+                  <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#2E1F0E;">
                     Inhale slowly through your nose.
                   </p>
-                  <p style="margin:0 0 10px; font-size:16px; line-height:1.7;">
+                  <p style="margin:0 0 10px; font-size:16px; line-height:1.7; color:#2E1F0E;">
                     Let your body soften instead of lift.
                   </p>
-                  <p style="margin:0; font-size:16px; line-height:1.7;">
-                    Exhale slowly… and notice where your body releases.
+                  <p style="margin:0; font-size:16px; line-height:1.7; color:#2E1F0E;">
+                    Exhale slowly&hellip; and notice where your body releases.
                   </p>
                 </div>
 
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
-                  There’s nothing to rush here.
+                  There&rsquo;s nothing to rush here.
                 </p>
 
-                <p style="margin:0 0 8px; font-size:16px; line-height:1.7;">
-                  — Brock
+                <p style="margin:0 0 4px; font-size:16px; line-height:1.7;">
+                  &mdash; Brock
                 </p>
-                <p style="margin:0 0 30px; font-size:15px; line-height:1.7; color:#8a7b75;">
-                  FBO
+                <p style="margin:0 0 30px; font-size:14px; line-height:1.7; color:#6B4C2A;">
+                  FBO &middot; Somatic Sex Education
                 </p>
               </td>
             </tr>
 
             <tr>
-              <td style="padding:20px 32px 36px 32px; border-top:1px solid #eee4de; text-align:center; font-family:Arial, Helvetica, sans-serif; color:#9b8e88; font-size:12px; line-height:1.7;">
-                FBO • hello@brockjohn.com
+              <td style="padding:20px 32px 36px 32px; background-color:#F5EED8; border-top:1px solid rgba(201,169,110,0.3); text-align:center; font-family:Arial, Helvetica, sans-serif; color:#6B4C2A; font-size:12px; line-height:1.7;">
+                FBO &bull; contact@brockjohn.com
               </td>
             </tr>
 
@@ -149,19 +305,21 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const email = typeof body?.email === "string" ? body.email.trim() : "";
+    const tier = normalizeTier(body?.tier);
+    const tierLabel = TIER_LABELS[tier];
 
     if (!email || !isValidEmail(email)) {
       return Response.json({ error: "Valid email required" }, { status: 400 });
     }
 
     const resend = new Resend(apiKey);
-    const subject = "You’re in. Your experience starts here.";
+    const subject = "You\u2019re in. Your experience starts here.";
 
     const userSend = await resend.emails.send({
       from,
       to: email,
       subject,
-      html: getConfirmationEmailHtml(subject),
+      html: getConfirmationEmailHtml(subject, tierLabel),
     });
 
     console.log("USER SEND RESULT:", JSON.stringify(userSend, null, 2));
@@ -178,7 +336,7 @@ export async function POST(req: Request) {
       from,
       to: teamEmail,
       subject: "New FBO membership signup",
-      html: `<p>New signup: ${email}</p>`,
+      html: `<p>New signup: ${email}</p><p>Interested in: <strong>${tierLabel}</strong></p>`,
     });
 
     console.log("TEAM SEND RESULT:", JSON.stringify(teamSend, null, 2));
