@@ -64,6 +64,7 @@ const tierTwoIncludes = [
 ];
 
 export default function MembershipDetailsPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [tier, setTier] = useState<TierChoice>("foundations");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,6 +74,11 @@ export default function MembershipDetailsPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+
+    if (!name.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
 
     if (!email.trim()) {
       setError("Please enter your email.");
@@ -86,7 +92,7 @@ export default function MembershipDetailsPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, tier }),
+        body: JSON.stringify({ name, email, tier }),
       });
 
       if (!response.ok) {
@@ -95,6 +101,7 @@ export default function MembershipDetailsPage() {
       }
 
       setIsSuccess(true);
+      setName("");
       setEmail("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit right now. Please try again.");
@@ -370,6 +377,14 @@ export default function MembershipDetailsPage() {
           </div>
 
           <form className="space-y-3" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Your name"
+              required
+              className="w-full rounded-lg border border-[rgba(201,169,110,0.4)] bg-white px-4 py-3 text-[13px] text-brown placeholder:text-[rgba(107,76,42,0.4)] focus:border-brown focus:outline-none"
+            />
             <input
               type="email"
               value={email}

@@ -19,7 +19,7 @@ function normalizeTier(value: unknown): TierChoice {
   return value === "immersion" ? "immersion" : "foundations";
 }
 
-function getConfirmationEmailHtml(subject: string, tierLabel: string) {
+function getConfirmationEmailHtml(subject: string, tierLabel: string, name: string) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +48,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string) {
 
             <tr>
               <td style="padding:36px 32px 8px 32px; font-family:Arial, Helvetica, sans-serif; color:#2E1F0E;">
-                <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">Hi,</p>
+                <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">Hi ${name},</p>
 
                 <p style="margin:0 0 18px; font-size:16px; line-height:1.7;">
                   You&rsquo;re officially inside.
@@ -298,9 +298,14 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
+    const name = typeof body?.name === "string" ? body.name.trim() : "";
     const email = typeof body?.email === "string" ? body.email.trim() : "";
     const tier = normalizeTier(body?.tier);
     const tierLabel = TIER_LABELS[tier];
+
+    if (!name) {
+      return Response.json({ error: "Please enter your name." }, { status: 400 });
+    }
 
     if (!email || !isValidEmail(email)) {
       return Response.json({ error: "Valid email required" }, { status: 400 });
@@ -313,7 +318,7 @@ export async function POST(req: Request) {
       from,
       to: email,
       subject,
-      html: getConfirmationEmailHtml(subject, tierLabel),
+      html: getConfirmationEmailHtml(subject, tierLabel, name),
     });
 
     console.log("USER SEND RESULT:", JSON.stringify(userSend, null, 2));
@@ -330,7 +335,7 @@ export async function POST(req: Request) {
       from,
       to: teamEmail,
       subject: "New FBO membership signup",
-      html: `<p>New signup: ${email}</p><p>Interested in: <strong>${tierLabel}</strong></p>`,
+      html: `<p>New signup: ${name} (${email})</p><p>Interested in: <strong>${tierLabel}</strong></p>`,
     });
 
     console.log("TEAM SEND RESULT:", JSON.stringify(teamSend, null, 2));

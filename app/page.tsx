@@ -24,6 +24,7 @@ const tierTwoIncludes = [
 ];
 
 export default function HomePage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [tier, setTier] = useState<TierChoice>("foundations");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,6 +34,11 @@ export default function HomePage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+
+    if (!name.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
 
     if (!email.trim()) {
       setError("Please enter your email.");
@@ -46,7 +52,7 @@ export default function HomePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, tier }),
+        body: JSON.stringify({ name, email, tier }),
       });
 
       if (!response.ok) {
@@ -55,6 +61,7 @@ export default function HomePage() {
       }
 
       setIsSuccess(true);
+      setName("");
       setEmail("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to submit right now. Please try again.");
@@ -109,6 +116,8 @@ export default function HomePage() {
 
           <a
             href="https://fbo-35min-course.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
             className="text-[11px] tracking-[0.1em] uppercase text-amber underline"
           >
             Preview the course →
@@ -138,6 +147,12 @@ export default function HomePage() {
             >
               Sign Up Now
             </a>
+            <Link
+              href="/bodywork-options"
+              className="border border-gold px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase text-amber hover:border-amber transition-colors"
+            >
+              View Bodywork Options
+            </Link>
           </div>
           <p className="text-[12px] text-[rgba(107,76,42,0.55)] mt-5">
             Submit your email to receive membership information + your 40% off coupon.
@@ -219,6 +234,8 @@ export default function HomePage() {
               </a>
               <a
                 href="https://fbo-35min-course.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
                 className="block text-center text-[11px] tracking-[0.1em] uppercase text-[rgba(107,76,42,0.55)] underline"
               >
                 Preview the course first
@@ -422,6 +439,14 @@ export default function HomePage() {
 
             <form className="space-y-3" onSubmit={handleSubmit}>
               <input
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Your name"
+                required
+                className="w-full rounded-lg border border-[rgba(245,238,216,0.25)] bg-[rgba(245,238,216,0.08)] px-4 py-3 text-[13px] text-cream placeholder:text-[rgba(245,238,216,0.4)] focus:border-gold focus:outline-none"
+              />
+              <input
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -463,10 +488,10 @@ export default function HomePage() {
             Brock John · Somatic Sex Education
           </span>
           <a
-            href="mailto:contact@brockjohn.com"
+            href="mailto:homewithbrockjohn@gmail.com"
             className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
           >
-            contact@brockjohn.com
+            homewithbrockjohn@gmail.com
           </a>
         </div>
       </footer>
