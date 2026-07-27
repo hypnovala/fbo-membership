@@ -141,7 +141,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string) {
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">04</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Start your week with Module 1: Arrival</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">All 7 modules are unlocked &mdash; explore whichever calls to you first</td>
                         </tr>
                       </table>
                     </td>
@@ -152,7 +152,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string) {
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">05</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Review the module&rsquo;s attached links and materials</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Review each module&rsquo;s attached links and materials</td>
                         </tr>
                       </table>
                     </td>
@@ -163,7 +163,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string) {
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">06</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Do the recommended exercises at your own convenience</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Do the recommended exercises at your own pace</td>
                         </tr>
                       </table>
                     </td>
@@ -223,24 +223,18 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string) {
                 </table>
 
                 <!-- Primary CTA -->
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 14px auto;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px auto;">
                   <tr>
                     <td align="center" bgcolor="#2E1F0E" style="border-radius:999px;">
                       <a
                         href="${PAYMENT_LINK}"
                         style="display:inline-block; padding:16px 32px; font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#F5EED8; text-decoration:none; font-weight:700;"
                       >
-                        Complete Your Enrollment
+                        Enroll Here
                       </a>
                     </td>
                   </tr>
                 </table>
-
-                <p style="margin:0 0 28px; text-align:center;">
-                  <a href="https://fbo-35min-course.vercel.app" style="font-size:13px; color:#6B4C2A; font-family:Arial, Helvetica, sans-serif; text-decoration:underline;">
-                    Not ready yet? Read the free preview guide &rarr;
-                  </a>
-                </p>
 
                 <div style="background-color:#F5EED8; border-radius:14px; padding:22px; margin:0 0 28px;">
                   <h3 style="margin:0 0 12px; font-size:19px; line-height:1.3; color:#6B4C2A; font-family:Georgia, 'Times New Roman', serif;">
