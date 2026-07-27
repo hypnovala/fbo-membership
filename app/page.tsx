@@ -165,12 +165,6 @@ export default function HomePage() {
             >
               Sign Up Now
             </a>
-            <Link
-              href="/bodywork-options"
-              className="border border-gold px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase text-amber hover:border-amber transition-colors"
-            >
-              View Bodywork Options
-            </Link>
           </div>
           <p className="text-[12px] text-[rgba(107,76,42,0.55)] mt-5">
             Submit your email to receive membership information + your 40% off coupon.
