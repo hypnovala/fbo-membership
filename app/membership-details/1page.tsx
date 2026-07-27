@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Image from "next/image";
 
 type TierChoice = "foundations" | "immersion";
 
@@ -9,32 +8,18 @@ const bundleIncludes = [
   {
     title: "The FBO Course",
     body: "Starting at your recommended module ($59 value), unfolding module by module.",
-    brockDesigned: false,
   },
   {
     title: "Return to Her",
     body: "Your private practice companion, matched to what you shared.",
-    brockDesigned: true,
   },
   {
     title: "Somatic Check-In App",
     body: "A running check-in with your own nervous system, anytime.",
-    brockDesigned: true,
-  },
-  {
-    title: "BBG — Brock Book Guide",
-    body: "A 30-minute phone call or FaceTime — Brock guides you through an interactive worksheet app from a book you already love, or one he'd personally choose.",
-    brockDesigned: true,
-  },
-  {
-    title: "SSEd — Somatic Sex Education Exercises",
-    body: "A downloadable PDF of guided exercises, yours to keep and revisit anytime.",
-    brockDesigned: false,
   },
   {
     title: "Monthly Group Call With Brock",
     body: "A live space to ask questions and be guided in real time.",
-    brockDesigned: false,
   },
 ];
 
@@ -188,23 +173,16 @@ export default function MembershipDetailsPage() {
           </p>
 
           <div className="bg-white border border-[rgba(201,169,110,0.25)] rounded-2xl p-6 mb-6">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-gold font-medium mb-5">Included In Your Bundle</p>
-            <div className="flex flex-col gap-6">
+            <p className="text-[10px] tracking-[0.2em] uppercase text-gold font-medium mb-4">Included In Your Bundle</p>
+            <div className="flex flex-col gap-4">
               {bundleIncludes.map((item) => (
-                <div key={item.title} className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-lg bg-[rgba(201,169,110,0.15)] flex items-center justify-center flex-shrink-0 text-amber text-[15px] font-bold">
+                <div key={item.title} className="flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-lg bg-[rgba(201,169,110,0.15)] flex items-center justify-center flex-shrink-0 text-amber text-[12px] font-bold">
                     ✦
                   </div>
                   <div>
-                    <p className="text-[18px] font-semibold text-brown leading-snug">
-                      {item.title}
-                      {item.brockDesigned && (
-                        <span className="ml-2 inline-block align-middle text-[11px] font-medium text-amber border border-gold rounded-full px-2.5 py-0.5 whitespace-nowrap">
-                          Custom designed by Brock
-                        </span>
-                      )}
-                    </p>
-                    <p className="text-[15px] text-[rgba(107,76,42,0.7)] leading-[1.6] mt-1">{item.body}</p>
+                    <p className="text-[14px] font-medium text-brown leading-snug">{item.title}</p>
+                    <p className="text-[12.5px] text-[rgba(107,76,42,0.65)] leading-[1.6]">{item.body}</p>
                   </div>
                 </div>
               ))}
@@ -227,52 +205,6 @@ export default function MembershipDetailsPage() {
               As your practice deepens, you may find yourself ready for closer support — weekly 1:1 calls and
               hands-on bodywork with Brock. That path opens naturally, whenever you are.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* About Brock */}
-      <section className="bg-brown px-6 py-14">
-        <div className="max-w-xl mx-auto flex flex-col gap-6">
-          <div className="relative w-full max-w-[220px] aspect-[3/4] rounded-2xl overflow-hidden border border-[rgba(201,169,110,0.3)]">
-            <Image
-              src="/brock_img.png"
-              alt="Brock John"
-              fill
-              className="object-cover"
-              sizes="220px"
-            />
-          </div>
-          <div>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-[rgba(201,169,110,0.7)] font-medium mb-3">
-              About Brock
-            </p>
-            <h2 className="font-playfair text-[26px] font-bold text-cream leading-[1.25] mb-4">
-              Nervous system educator &amp; somatic bodywork practitioner.
-            </h2>
-            <p className="text-[14px] leading-[1.8] text-[rgba(245,238,216,0.8)] mb-3.5">
-              Brock John is a somatic bodywork practitioner and nervous system educator based in Houston, TX,
-              working with high-stress professionals and caregivers ready to rebuild a felt sense of safety in
-              their bodies.
-            </p>
-            <p className="text-[14px] leading-[1.8] text-[rgba(245,238,216,0.8)] mb-5">
-              His approach is calm, grounded, and rooted in one belief: the body already knows how to heal, given
-              the right conditions.
-            </p>
-            <ul className="flex flex-col gap-2">
-              {[
-                "Thai Massage & Therapeutic Bodywork",
-                "Nervous System Regulation Coaching",
-                "Mind-Body & Somatic Coaching",
-                "Hypnotist",
-                "Goals Coaching",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5 text-[13px] text-[rgba(201,169,110,0.9)]">
-                  <span className="w-4 h-px bg-gold flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>

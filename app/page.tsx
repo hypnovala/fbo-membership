@@ -147,12 +147,6 @@ export default function HomePage() {
             >
               Sign Up Now
             </a>
-            <Link
-              href="/bodywork-options"
-              className="border border-gold px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase text-amber hover:border-amber transition-colors"
-            >
-              View Bodywork Options
-            </Link>
           </div>
           <p className="text-[12px] text-[rgba(107,76,42,0.55)] mt-5">
             Submit your email to receive membership information + your 40% off coupon.
@@ -488,10 +482,10 @@ export default function HomePage() {
             Brock John · Somatic Sex Education
           </span>
           <a
-            href="mailto:homewithbrockjohn@gmail.com"
+            href="mailto:contact@brockjohn.com"
             className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
           >
-            homewithbrockjohn@gmail.com
+            contact@brockjohn.com
           </a>
         </div>
       </footer>
