@@ -77,30 +77,12 @@ export default function HomePage() {
         <span className="font-playfair text-[16px] text-amber">
           Brock<em className="italic text-gold">John</em>
         </span>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://www.instagram.com/fbosomaticbody/"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[11px] tracking-[0.14em] uppercase text-amber hidden sm:inline"
-          >
-            Instagram
-          </a>
-          <a
-            href="https://www.tiktok.com/@brock.bodywork?is_from_webapp=1&sender_device=pc"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[11px] tracking-[0.14em] uppercase text-amber hidden sm:inline"
-          >
-            TikTok
-          </a>
-          <a
-            href="#signup"
-            className="bg-brown text-cream px-5 py-2.5 rounded-lg text-[11px] tracking-[0.18em] uppercase font-medium hover:opacity-85 transition-opacity"
-          >
-            Sign Up Now
-          </a>
-        </div>
+        <a
+          href="#signup"
+          className="bg-brown text-cream px-5 py-2.5 rounded-lg text-[11px] tracking-[0.18em] uppercase font-medium hover:opacity-85 transition-opacity"
+        >
+          Sign Up Now
+        </a>
       </nav>
 
       {/* Course preview hero */}
@@ -165,12 +147,6 @@ export default function HomePage() {
             >
               Sign Up Now
             </a>
-            <Link
-              href="/bodywork-options"
-              className="border border-gold px-6 py-3.5 rounded-lg text-[12px] font-medium tracking-[0.18em] uppercase text-amber hover:border-amber transition-colors"
-            >
-              View Bodywork Options
-            </Link>
           </div>
           <p className="text-[12px] text-[rgba(107,76,42,0.55)] mt-5">
             Submit your email to receive membership information + your 40% off coupon.
@@ -501,36 +477,16 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="bg-brown border-t border-[rgba(201,169,110,0.12)] px-6 py-6">
-        <div className="max-w-5xl mx-auto flex flex-col gap-4 text-center">
-          <div className="flex items-center justify-center gap-5">
-            <a
-              href="https://www.instagram.com/fbosomaticbody/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[11px] tracking-[0.14em] uppercase text-gold hover:text-[rgba(201,169,110,0.7)] transition-colors"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.tiktok.com/@brock.bodywork?is_from_webapp=1&sender_device=pc"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[11px] tracking-[0.14em] uppercase text-gold hover:text-[rgba(201,169,110,0.7)] transition-colors"
-            >
-              TikTok
-            </a>
-          </div>
-          <div className="flex flex-col gap-2">
-            <span className="font-playfair text-[14px] italic text-[rgba(201,169,110,0.4)]">
-              Brock John · Somatic Sex Education
-            </span>
-            <a
-              href="mailto:homewithbrockjohn@gmail.com"
-              className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
-            >
-              homewithbrockjohn@gmail.com
-            </a>
-          </div>
+        <div className="max-w-5xl mx-auto flex flex-col gap-2 text-center">
+          <span className="font-playfair text-[14px] italic text-[rgba(201,169,110,0.4)]">
+            Brock John · Somatic Sex Education
+          </span>
+          <a
+            href="mailto:contact@brockjohn.com"
+            className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
+          >
+            contact@brockjohn.com
+          </a>
         </div>
       </footer>
     </main>
