@@ -42,7 +42,7 @@ const howItWorks = [
   {
     step: "04",
     title: "Your course, module by module",
-    body: "Unlocking at your pace — never a countdown.",
+    body: "Every module is already yours — no countdown, no waiting required.",
   },
 ];
 
@@ -226,6 +226,10 @@ export default function MembershipDetailsPage() {
               </div>
             ))}
           </div>
+
+          <p className="text-[16px] sm:text-[17px] leading-[1.6] text-[#3a2a16] mt-10 pt-8 border-t border-[rgba(201,169,110,0.2)]">
+            Or, if you&apos;d rather dive deep right away &mdash; every module is already yours, at your own leisure.
+          </p>
         </div>
       </section>
 
