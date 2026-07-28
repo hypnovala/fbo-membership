@@ -158,7 +158,7 @@ export default function MembershipDetailsPage() {
             href="https://fbo.brockjohn.com/"
             className="inline-block mt-8 w-full max-w-xs py-3 border border-[rgba(107,76,42,0.22)] text-brown rounded-xl font-jost text-[12px] font-medium tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors text-center"
           >
-            Return to Course
+            Return Home
           </a>
         </div>
       </section>
@@ -498,7 +498,7 @@ export default function MembershipDetailsPage() {
             href="https://fbo.brockjohn.com/"
             className="inline-block mt-8 w-full py-[15px] border border-[rgba(201,169,110,0.35)] text-cream rounded-xl font-jost text-[12px] font-semibold tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors"
           >
-            Return to Course
+            Return Home
           </a>
         </div>
       </section>
