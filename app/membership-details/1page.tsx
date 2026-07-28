@@ -114,7 +114,7 @@ export default function MembershipDetailsPage() {
     <main className="min-h-screen bg-warm font-jost">
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-warm border-b border-[rgba(201,169,110,0.2)] px-6 h-16 flex items-center justify-between">
-        <a href="https://course.brockjohn.com/" className="font-playfair text-[16px] text-amber">
+        <a href="https://fbo.brockjohn.com/" className="font-playfair text-[16px] text-amber">
           Brock<em className="italic text-gold">John</em>
         </a>
         <a
@@ -140,7 +140,7 @@ export default function MembershipDetailsPage() {
             A private membership designed to help you regulate, reconnect, and expand your capacity to feel.
           </p>
           <a
-            href="https://course.brockjohn.com/"
+            href="https://fbo.brockjohn.com/"
             className="inline-block mt-8 w-full max-w-xs py-3 border border-[rgba(107,76,42,0.22)] text-brown rounded-xl font-jost text-[12px] font-medium tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors text-center"
           >
             Return to Course
@@ -427,7 +427,7 @@ export default function MembershipDetailsPage() {
             There&apos;s nothing to rush. This is about learning how to slow down &amp; feel again.
           </p>
           <a
-            href="https://course.brockjohn.com/"
+            href="https://fbo.brockjohn.com/"
             className="inline-block mt-8 w-full py-[15px] border border-[rgba(201,169,110,0.35)] text-cream rounded-xl font-jost text-[12px] font-semibold tracking-[0.2em] uppercase hover:bg-[rgba(201,169,110,0.08)] transition-colors"
           >
             Return to Course
