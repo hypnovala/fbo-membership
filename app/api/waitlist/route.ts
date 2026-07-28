@@ -261,6 +261,12 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                 <p style="margin:0 0 30px; font-size:14px; line-height:1.7; color:#6B4C2A;">
                   FBO &middot; Somatic Sex Education
                 </p>
+                <p style="margin:0 0 8px; font-size:14px; line-height:1.7;">
+                  <a href="https://fbo.brockjohn.com" style="color:#6B4C2A; text-decoration:none;">fbo.brockjohn.com</a>
+                </p>
+                <p style="margin:0 0 30px; font-size:14px; line-height:1.7; color:#6B4C2A;">
+                  Call or Text Brock <a href="tel:13462191603" style="color:#6B4C2A; text-decoration:none;">(346) 219-1603</a>
+                </p>
               </td>
             </tr>
 

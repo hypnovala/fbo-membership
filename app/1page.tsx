@@ -525,10 +525,10 @@ export default function HomePage() {
               Brock John · Somatic Sex Education
             </span>
             <a
-              href="mailto:homewithbrockjohn@gmail.com"
+              href="mailto:contact@brockjohn.com"
               className="text-[11px] tracking-[0.08em] uppercase text-[rgba(245,238,216,0.4)] hover:text-[rgba(245,238,216,0.6)] transition-colors"
             >
-              homewithbrockjohn@gmail.com
+              contact@brockjohn.com
             </a>
           </div>
         </div>
