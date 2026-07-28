@@ -36,6 +36,11 @@ const bundleIncludes = [
     body: "A live space to ask questions and be guided in real time.",
     brockDesigned: false,
   },
+  {
+    title: "Bodywork and Massage Options for Local Clients in Texas",
+    body: "In-person bodywork and massage sessions, available for local clients, booked separately from your membership.",
+    brockDesigned: false,
+  },
 ];
 
 const howItWorks = [
@@ -73,6 +78,7 @@ const tierOneIncludes = [
 
 const tierTwoIncludes = [
   "Weekly 1:1 calls with Brock",
+  "Bodywork and massage sessions (Texas local clients)",
   "Everything in Somatic Foundations",
   "Personalized nervous system support",
   "Ongoing guidance for regulation & awareness",
@@ -401,6 +407,9 @@ export default function MembershipDetailsPage() {
                 </ul>
                 <p className="text-[11.5px] text-[rgba(245,238,216,0.45)]">
                   $89/month if you&apos;re also booking bodywork sessions separately.
+                </p>
+                <p className="text-[10.5px] text-[rgba(245,238,216,0.35)] mt-1.5">
+                  Ask Brock for more details on bodywork and massage options.
                 </p>
               </div>
             </div>
