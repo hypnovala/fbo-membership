@@ -7,9 +7,8 @@ const TIER_LABELS: Record<TierChoice, string> = {
   immersion: "Full Body Immersion",
 };
 
-// TODO: replace once the real Stripe checkout link is ready.
-const PAYMENT_LINK = "PASTE_PAYMENT_LINK_HERE";
-const COUPON_CODE = "40OFFBROCK";
+const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/outcall/Coaching";
+const PROMO_SELECTION = "Level Two Brock FBO (40% Promo)";
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -212,11 +211,11 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                       <p style="margin:0 0 6px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(201,169,110,0.7); font-family:Arial, Helvetica, sans-serif;">
                         Your Coupon
                       </p>
-                      <p style="margin:0; font-size:22px; font-weight:700; color:#F5EED8; font-family:Georgia, 'Times New Roman', serif; letter-spacing:0.04em;">
-                        ${COUPON_CODE}
+                      <p style="margin:0 0 10px; font-size:14px; line-height:1.6; color:rgba(245,238,216,0.85); font-family:Arial, Helvetica, sans-serif;">
+                        Access your 40% off first month by selecting:
                       </p>
-                      <p style="margin:8px 0 0; font-size:13px; color:rgba(245,238,216,0.6); font-family:Arial, Helvetica, sans-serif;">
-                        40% off your first month
+                      <p style="margin:0; font-size:19px; font-weight:700; color:#F5EED8; font-family:Georgia, 'Times New Roman', serif; letter-spacing:0.02em;">
+                        &ldquo;${PROMO_SELECTION}&rdquo;
                       </p>
                     </td>
                   </tr>
