@@ -7,7 +7,7 @@ const TIER_LABELS: Record<TierChoice, string> = {
   immersion: "Full Body Immersion",
 };
 
-const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/inhouse";
+const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/outcall/Coaching";
 const PROMO_SELECTION = "40offBrock";
 
 function isValidEmail(email: string) {
