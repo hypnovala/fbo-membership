@@ -8,7 +8,7 @@ const TIER_LABELS: Record<TierChoice, string> = {
 };
 
 const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/outcall/Coaching";
-const PROMO_SELECTION = "Level Two Brock FBO (40% Promo)";
+const PROMO_SELECTION = "40offBrock";
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -220,7 +220,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                   <tr>
                     <td style="background-color:#2E1F0E; border-radius:12px; padding:20px; text-align:center;">
                       <p style="margin:0 0 6px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(201,169,110,0.7); font-family:Arial, Helvetica, sans-serif;">
-                        Your Coupon
+                        Your Stripe Coupon
                       </p>
                       <p style="margin:0 0 10px; font-size:14px; line-height:1.6; color:rgba(245,238,216,0.85); font-family:Arial, Helvetica, sans-serif;">
                         Access your 40% off first month by selecting:
@@ -240,7 +240,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                         href="${PAYMENT_LINK}"
                         style="display:inline-block; padding:16px 32px; font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#F5EED8; text-decoration:none; font-weight:700;"
                       >
-                        Enroll Here
+                        Book Here
                       </a>
                     </td>
                   </tr>
