@@ -107,7 +107,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">01</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Book your first call with Brock via MassageBook.com (No Payment here)</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Pay for your monthly membership at MassageBook.com</td>
                         </tr>
                       </table>
                     </td>
@@ -118,7 +118,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">02</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Receive your confirmation email for your first appointment</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Book your first call with Brock via the calendar link</td>
                         </tr>
                       </table>
                     </td>
@@ -129,17 +129,6 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">03</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">AFTER confirmation, pay for your monthly membership via the Stripe link (Use coupon code below for 40% Off)</td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
-                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tr>
-                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">04</td>
                           <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Check your email for your Return to Her app link</td>
                         </tr>
                       </table>
@@ -150,7 +139,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                     <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">05</td>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">04</td>
                           <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">All 7 modules are unlocked &mdash; explore whichever calls to you first</td>
                         </tr>
                       </table>
@@ -161,7 +150,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                     <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">06</td>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">05</td>
                           <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Review each module&rsquo;s attached links and materials</td>
                         </tr>
                       </table>
@@ -169,10 +158,10 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                   </tr>
 
                   <tr>
-                    <td style="padding:14px 0 4px; border-top:1px solid rgba(201,169,110,0.25);">
+                    <td style="padding:14px 0; border-top:1px solid rgba(201,169,110,0.25);">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">07</td>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">06</td>
                           <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Do the recommended exercises at your own pace</td>
                         </tr>
                       </table>
@@ -183,7 +172,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                     <td style="padding:14px 0 4px; border-top:1px solid rgba(201,169,110,0.25);">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">08</td>
+                          <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">07</td>
                           <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">Send Brock any progress, if you&rsquo;d like to share it</td>
                         </tr>
                       </table>
