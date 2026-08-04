@@ -7,7 +7,7 @@ const TIER_LABELS: Record<TierChoice, string> = {
   immersion: "Full Body Immersion",
 };
 
-const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/outcall/Coaching";
+const PAYMENT_LINK = "https://www.massagebook.com/therapists/brock-john/services/inhouse";
 const PROMO_SELECTION = "40offBrock";
 
 function isValidEmail(email: string) {
@@ -129,7 +129,7 @@ function getConfirmationEmailHtml(subject: string, tierLabel: string, name: stri
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                           <td width="44" valign="top" style="font-size:26px; font-weight:900; color:#C9A96E; font-family:Arial, Helvetica, sans-serif;">03</td>
-                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">AFTER confirmation, pay for your monthly membership via the Stripe link (Use coupon code below for 40% Off)</td>
+                          <td style="font-size:19px; font-weight:700; color:#2E1F0E; line-height:1.4; font-family:Arial, Helvetica, sans-serif;">AFTER confirmation, pay for your monthly membership via the Stripe link (Use coupon code: 40offBrock)</td>
                         </tr>
                       </table>
                     </td>
