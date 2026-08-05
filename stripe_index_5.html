@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FBO Payment Follow-Up — Email Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #F5EED8;
+    font-family: 'Hanken Grotesk', Arial, sans-serif;
+    color: #2E1F0E;
+    padding: 32px 20px 80px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .sub { font-size: 14px; color: #6B4C2A; margin: 0 0 28px; line-height: 1.6; }
+
+  .panel {
+    background: #FBF8EF;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .panel h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #6B4C2A;
+    margin: 0 0 6px;
+  }
+  input[type="text"] {
+    width: 100%;
+    font-family: 'Hanken Grotesk', Arial, sans-serif;
+    font-size: 15px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(46,31,14,0.15);
+    background: #fff;
+    color: #2E1F0E;
+    margin-bottom: 16px;
+  }
+  input[type="text"]:focus { outline: none; border-color: #C9A96E; }
+
+  .subject-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1.5px solid rgba(46,31,14,0.15);
+    border-radius: 8px;
+    padding: 11px 14px;
+    margin-bottom: 4px;
+  }
+  .subject-row span { flex: 1; font-size: 14px; }
+
+  button.copy-btn {
+    font-family: 'Hanken Grotesk', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+    background: #2E1F0E;
+    color: #F5EED8;
+    border: none;
+    border-radius: 100px;
+    padding: 9px 16px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  button.copy-btn:hover { opacity: 0.85; }
+  button.copy-btn.copied { background: #6B8F5E; }
+
+  button.copy-big {
+    width: 100%;
+    font-family: 'Hanken Grotesk', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    background: #C9A96E;
+    color: #2E1F0E;
+    border: none;
+    border-radius: 100px;
+    padding: 15px 20px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.15s;
+  }
+  button.copy-big:hover { opacity: 0.9; }
+  button.copy-big.copied { background: #6B8F5E; color: #fff; }
+
+  .preview-frame {
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #F5EED8;
+  }
+  iframe {
+    width: 100%;
+    height: 900px;
+    border: none;
+    display: block;
+  }
+
+  .instructions {
+    font-size: 13px;
+    color: #6B4C2A;
+    line-height: 1.8;
+  }
+  .instructions ol { margin: 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>FBO Payment Follow-Up</h1>
+  <p class="sub">Fill in her name (and the real Stripe link once you have it), then copy and paste into Gmail. No auto-send — this is for manual sending.</p>
+
+  <div class="panel">
+    <h2>1. Details</h2>
+    <label for="nameInput">Her First Name</label>
+    <input type="text" id="nameInput" value="Sarah" placeholder="e.g. Sarah" />
+
+    <label for="stripeInput">Stripe Payment Link</label>
+    <input type="text" id="stripeInput" value="https://buy.stripe.com/8x25kFaVCbJh2TddAI6EU04" placeholder="https://buy.stripe.com/..." />
+  </div>
+
+  <div class="panel">
+    <h2>2. Subject Line</h2>
+    <div class="subject-row">
+      <span id="subjectText"></span>
+      <button class="copy-btn" id="copySubjectBtn">Copy Subject</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>3. Email Body</h2>
+    <p class="instructions" style="margin-bottom:14px;">
+      Click below, then paste directly into a new Gmail compose window (Cmd/Ctrl+V). Formatting comes with it — no need to touch HTML.
+    </p>
+    <button class="copy-big" id="copyBodyBtn">Copy Formatted Email</button>
+  </div>
+
+  <div class="panel">
+    <h2>Preview</h2>
+    <div class="preview-frame">
+      <iframe id="previewFrame"></iframe>
+    </div>
+  </div>
+
+  <div class="panel instructions">
+    <h2 style="margin-bottom:10px;">How to send</h2>
+    <ol>
+      <li>Enter her name above (and the Stripe link, once you have the real one)</li>
+      <li>Click <strong>Copy Subject</strong>, paste into Gmail's subject field</li>
+      <li>Click <strong>Copy Formatted Email</strong></li>
+      <li>Click into Gmail's message body and paste (Cmd/Ctrl+V) — the styling comes through automatically</li>
+      <li>Send</li>
+    </ol>
+  </div>
+
+</div>
+
+<script>
+function buildEmailHtml(name, stripeLink) {
+  const COUPON_CODE = '40offBrock';
+  return `
+      <div style="font-family:Georgia,serif;max-width:580px;color:#2E1F0E;background:#F5EED8;">
+        <div style="background:#2E1F0E;padding:14px 28px;">
+          <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;
+                    color:#C9A96E;margin:0;">
+            Full Body Orgasmic Program &nbsp;&middot;&nbsp; Brock John
+          </p>
+        </div>
+        <div style="padding:2rem 1.75rem;">
+          <h1 style="font-size:1.65rem;font-weight:300;font-style:italic;
+                     color:#2E1F0E;line-height:1.3;margin:0 0 0.75rem;">
+            Hi ${name},
+          </h1>
+          <p style="color:#6B4C2A;line-height:1.75;margin:0 0 1.25rem;">
+            Your call with Brock is scheduled soon. Before you talk, there&rsquo;s one
+            step left &mdash; completing your monthly membership below.
+          </p>
+          <hr style="border:none;border-top:1px solid #C9A96E;margin:0 0 1.25rem;" />
+          <p style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+                    color:#C9A96E;margin:0 0 0.5rem;">Final Step</p>
+          <h2 style="font-size:1.1rem;font-weight:400;font-style:italic;
+                     color:#2E1F0E;margin:0 0 0.75rem;">
+            Complete your $39/month membership
+          </h2>
+          <p style="color:#6B4C2A;line-height:1.7;margin:0 0 1rem;">
+            Complete this before your call so everything below is ready to go.
+          </p>
+          <div style="background:#2E1F0E;border-radius:3px;padding:14px 18px;margin:0 0 1.25rem;">
+            <p style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+                      color:#C9A96E;margin:0 0 4px;">Your Stripe Coupon</p>
+            <p style="font-size:1rem;font-weight:400;color:#F5EED8;margin:0 0 6px;line-height:1.4;">
+              <strong style="color:#C9A96E;">40% off your first month</strong>
+              &nbsp;&mdash; use coupon code at checkout:
+            </p>
+            <div style="background:#C9A96E;border-radius:2px;display:inline-block;
+                        padding:6px 16px;margin-top:2px;">
+              <span style="font-family:Arial,sans-serif;font-size:1rem;font-weight:700;
+                           letter-spacing:0.1em;color:#2E1F0E;">${COUPON_CODE}</span>
+            </div>
+          </div>
+          <div style="text-align:center;margin:0 0 1.5rem;">
+            <a href="${stripeLink}"
+               style="display:inline-block;background:#C9A96E;color:#2E1F0E;
+                      font-family:Arial,sans-serif;font-size:0.85rem;font-weight:700;
+                      letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;
+                      padding:14px 32px;border-radius:2px;">
+              Pay $39/month &mdash; Complete Enrollment &rarr;
+            </a>
+            <p style="font-size:0.72rem;color:#8B6340;margin:8px 0 0;font-style:italic;">
+              Apply coupon code <strong>${COUPON_CODE}</strong> at checkout for 40% off
+            </p>
+          </div>
+          <hr style="border:none;border-top:1px solid #EDE3C4;margin:0 0 1.25rem;" />
+          <p style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+                    color:#C9A96E;margin:0 0 0.5rem;">Once payment is complete</p>
+          <h2 style="font-size:1.1rem;font-weight:400;font-style:italic;
+                     color:#2E1F0E;margin:0 0 0.75rem;">
+            Everything that unlocks with your membership
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 1.25rem;">
+            ${[
+              ['The FBO Course', 'All seven modules, unlocked and ready whenever you are.'],
+              ['Return to Her', 'Your private practice companion, matched to what you shared.'],
+              ['Brock Somatic Check-In App', 'A running check-in with your own nervous system, anytime.'],
+              ["BBG — Brock Book Guide", "A 30-minute call — Brock guides you through an interactive worksheet app from a book you love, or one he'd choose."],
+              ['SSEd — Somatic Sex Education Exercises', 'A downloadable PDF of guided exercises, yours to keep and revisit.'],
+              ['Monthly Group Call With Brock', 'A live space to ask questions and be guided in real time.'],
+              ['Bodywork &amp; Massage Options', 'In-person sessions for local Texas clients, booked separately.'],
+            ].map(([title, desc]) => `
+              <tr>
+                <td style="padding:10px 12px;border-left:2px solid #C9A96E;
+                           background:#FFFFFF;vertical-align:top;">
+                  <p style="font-family:Arial,sans-serif;font-size:0.82rem;font-weight:700;
+                             color:#2E1F0E;margin:0 0 3px;">${title}</p>
+                  <p style="font-family:Arial,sans-serif;font-size:0.78rem;color:#8B6340;
+                             margin:0;line-height:1.5;">${desc}</p>
+                </td>
+              </tr>
+              <tr><td style="height:4px;"></td></tr>
+            `).join('')}
+          </table>
+          <p style="color:#6B4C2A;line-height:1.7;margin:0 0 0.5rem;font-size:0.88rem;">
+            Once payment is complete, your access details will follow by email.
+            Reach me directly at <strong>346-219-1603</strong> with any questions.
+          </p>
+          <p style="color:#6B4C2A;line-height:1.7;margin:0 0 1.5rem;font-size:0.88rem;
+                    font-style:italic;">
+            No pressure. This is your pace.
+          </p>
+          <hr style="border:none;border-top:1px solid #C9A96E;margin:0 0 1.25rem;" />
+          <p style="font-size:0.82rem;color:#8B6340;font-style:italic;margin:0;line-height:1.6;">
+            &mdash; Brock John<br/>
+            Somatic Sex Education<br/>
+            fbo.brockjohn.com &nbsp;&middot;&nbsp; @fbosomaticbody
+          </p>
+        </div>
+        <div style="background:#2E1F0E;padding:10px 28px;text-align:center;">
+          <p style="font-size:0.65rem;color:rgba(201,169,110,0.5);margin:0;letter-spacing:0.08em;">
+            Education only &nbsp;&middot;&nbsp; Not medical advice &nbsp;&middot;&nbsp;
+            Consult a qualified health professional for medical concerns
+          </p>
+        </div>
+      </div>
+  `;
+}
+
+const nameInput = document.getElementById('nameInput');
+const stripeInput = document.getElementById('stripeInput');
+const subjectText = document.getElementById('subjectText');
+const previewFrame = document.getElementById('previewFrame');
+const copySubjectBtn = document.getElementById('copySubjectBtn');
+const copyBodyBtn = document.getElementById('copyBodyBtn');
+
+function getName() {
+  return (nameInput.value || '').trim() || 'there';
+}
+function getStripeLink() {
+  return (stripeInput.value || '').trim() || 'PASTE_FBO_STRIPE_LINK_HERE';
+}
+function getSubject() {
+  return getName() + ', one Stripe step left to complete your FBO membership';
+}
+
+function updatePreview() {
+  const name = getName();
+  const stripeLink = getStripeLink();
+  subjectText.textContent = getSubject();
+
+  const html = buildEmailHtml(name, stripeLink);
+  const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+  doc.open();
+  doc.write('<!DOCTYPE html><html><body style="margin:0;padding:20px;background:#F5EED8;">' + html + '</body></html>');
+  doc.close();
+}
+
+nameInput.addEventListener('input', updatePreview);
+stripeInput.addEventListener('input', updatePreview);
+
+function flashCopied(btn, label) {
+  const original = btn.textContent;
+  btn.textContent = label || 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.classList.remove('copied');
+  }, 1800);
+}
+
+copySubjectBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(getSubject());
+    flashCopied(copySubjectBtn, 'Copied!');
+  } catch (e) {
+    alert('Could not copy automatically — please select and copy the subject text manually.');
+  }
+});
+
+copyBodyBtn.addEventListener('click', async () => {
+  const html = buildEmailHtml(getName(), getStripeLink());
+  try {
+    const blobHtml = new Blob([html], { type: 'text/html' });
+    const blobText = new Blob([previewFrame.contentDocument.body.innerText], { type: 'text/plain' });
+    const item = new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobText });
+    await navigator.clipboard.write([item]);
+    flashCopied(copyBodyBtn, 'Copied! Paste into Gmail now →');
+  } catch (e) {
+    alert('Rich copy is not supported in this browser. Try Chrome or Edge, or right-click the preview above and use "Copy" after selecting all its content.');
+  }
+});
+
+updatePreview();
+</script>
+</body>
+</html>
